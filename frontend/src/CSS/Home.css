@@ -1,0 +1,107 @@
+/* Home.css */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  line-height: 1.6;
+  /* background-color: #e6ffe6; light green background for the page */
+}
+
+.main-heading {
+  text-align: center;
+  font-size: 2.5em;
+  margin-top: 20px;
+  color: #333;
+}
+
+.outer-container {
+  padding: 20px;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.context-box, .image-box {
+  flex: 1;
+  padding: 20px;
+}
+
+.context-box {
+  order: 1;
+}
+
+.image-box {
+  order: 2;
+  text-align: center;
+}
+
+.image-box img {
+  max-width: 80%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.content-heading {
+  font-size: 1.8em;
+  margin-bottom: 10px;
+  color: #444;
+}
+
+.benefits {
+  list-style-type: none;
+  padding: 0;
+}
+
+.benefits-item {
+  background: #f4f4f4;
+  margin: 10px 0;
+  padding: 10px;
+  border-left: 5px solid #007bff;
+  border-radius: 5px;
+  font-size: 1.1em;
+  color: #555;
+}
+
+/* .border {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+} */
+
+.section2 .context-box {
+  order: 2;
+}
+
+.section2 .image-box {
+  order: 1;
+}
+
+@media (max-width: 768px) {
+  .flex {
+    flex-direction: column;
+  }
+
+  .context-box, .image-box {
+    order: unset;
+    padding: 10px;
+  }
+
+  .main-heading {
+    font-size: 2em;
+  }
+
+  .content-heading {
+    font-size: 1.5em;
+  }
+
+  .benefits-item {
+    font-size: 1em;
+  }
+}

@@ -1,0 +1,103 @@
+body{
+  background-color: rgb(184, 232, 184);
+}
+.container {
+    max-width: 140rem;
+    padding: 2rem 3rem;
+    height: 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    border: 3px solid green ;
+  }
+  
+  .nav-ul {
+    display: flex;
+    gap: 3.2rem;
+    flex-direction: row;
+    flex-wrap: wrap;
+    list-style-type: none;
+    /* text-decoration: underline; */
+
+  }
+
+  .nav-ul>li a{
+    text-decoration: none;
+    font-weight: 800;
+    color : white;
+  }
+
+  .navbar-logo{
+    width: 4vw;
+    height: 4vw;
+    border-radius: 50%;
+  }
+
+  .nav-button{
+    display: none;
+    position : absolute ;
+
+    top : 40px ;
+    right : 20px ;
+  }
+
+  nav{
+    display: block;
+  }
+
+  .nav-ul li a.active{
+    /* background-color: #dec6c6; */
+    text-decoration: underline;
+    /* border : 2px solid green; */
+    padding : 2px;
+  }
+
+  @media (max-width: 767px) {
+    .nav-button{
+        display: flex;
+    }
+
+    .nav-ul{
+        flex-direction: column;
+        width: 100%;
+    }
+    .logo-brand{
+      display: none;
+    }
+
+    .container{
+        justify-content: center;
+        height: 100%;
+    }
+  }
+
+  li .voiceSearch{
+    position: absolute;
+  }
+
+  .search-bar{
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    height: 15px;
+    border : 2px solid grey;
+  }
+  .voice-button{
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    height: 33px;
+    /* border: 1px solid grey; */
+    padding: 3px;
+
+  }
+
+
+  .logo-brand{
+    height: 50px;
+    width: 60px;
+  }
+
+  .company-logo{
+    width: 100%;
+  }
+  

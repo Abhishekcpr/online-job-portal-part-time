@@ -1,0 +1,28 @@
+.navjobs-container ul{
+display: flex;
+justify-content: space-evenly;
+align-items: center;
+flex-wrap: wrap;
+/* border: 3px solid cyan; */
+}
+
+.navjobs-container li{
+    list-style-type: none;
+text-decoration: none;
+font-weight: 800;
+
+}
+
+.navjobs-ul li a.active {
+    border: 2px solid #000; /* Underline color and thickness for active link */
+  }
+
+
+
+@media (max-width: 767px){
+    .navjobs-container ul
+    {
+        gap : 2vw;
+        flex-direction: column;
+    }
+}

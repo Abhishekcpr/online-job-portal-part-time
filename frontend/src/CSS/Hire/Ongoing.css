@@ -1,0 +1,66 @@
+.ongoing-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .ongoing-container .tables {
+    width: 100%;
+    max-width: 1000px; 
+    border-collapse: collapse;
+    margin-top: 50px;
+    border: 3px solid green;
+    overflow: auto;
+    
+  }
+  
+ .ongoing-container th, td {
+    padding: 1.5vw;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .ongoing-container tr:hover{
+    background-color: rgba(103, 215, 88, 0.781);
+  }
+  
+ .ongoing-container th {
+    background-color: black;
+    text-align: left;
+  }
+
+  .ongoing-container thead> tr{
+    font-weight: 500;
+    color : white;
+    background-color: black;
+  }
+  
+ .ongoing-container .popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+ .ongoing-container .popupContent {
+    background-color: white;
+    padding: 20px;
+    width: 40vw;
+    height : 80%;
+    overflow-y: scroll;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+  
+ .ongoing-container .popup button {
+    margin-top: 10px;
+  }
+  
+  .popup-container{
+    padding: 2vw;
+    border-bottom: 1px solid rgb(119, 114, 114);
+  }
+ 
