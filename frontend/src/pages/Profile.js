@@ -338,7 +338,8 @@ const Profile = () => {
       </div>
     </div>
     
-        <div className="testimonial-container">
+      {
+        testimonials.length > 0 &&   <div className="testimonial-container">
       <div className="title">
         <h2>Testimonial</h2>
          
@@ -365,6 +366,7 @@ const Profile = () => {
           
        </div>
        </div>
+      }
        </section>
     </>
   )
