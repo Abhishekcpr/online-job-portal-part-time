@@ -8,7 +8,7 @@ async function getGeminiResponse(prompt)
     };
 
     
-    const response = await fetch('http://localhost:5000/api/gemini', requestOptions);
+    const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/gemini`, requestOptions);
     const responseData = await response.json();
     // console.log(responseData);
    
