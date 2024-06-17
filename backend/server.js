@@ -15,8 +15,9 @@ const connectDb = require('./utils/db.js')
 app.use(express.json())
 
 
+// origin: "https://online-job-portal-part-time.vercel.app/",
 const corsOptions = {
-    origin: "https://online-job-portal-part-time.vercel.app/",
+   origin: "https://online-job-portal-part-time.vercel.app/",
     methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
     credentials: true,
 };

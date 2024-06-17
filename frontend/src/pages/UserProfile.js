@@ -195,9 +195,9 @@ const UserProfile = () => {
 
     
  async function doSomething(userId){
-  await getTestimonials(userId)
    await getApiData(userId) ;
    await getCurrentLocation(setLocationAdd,setLocationCoord)
+   await getTestimonials(userId)
  }
 
     useEffect(() => {

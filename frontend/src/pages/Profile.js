@@ -230,8 +230,8 @@ const Profile = () => {
 
     
  async function doSomething(userId){
-  await getTestimonials(userId)
    await getApiData(userId) ;
+   await getTestimonials(userId)
  }
 
     useEffect(() => {
