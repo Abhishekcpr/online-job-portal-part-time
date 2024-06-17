@@ -50,7 +50,7 @@ const Saved = () => {
          else
          {
           
-          const allsavedProfiles = await fetch(`http://localhost:5000/api/jobs/getsavedprofile/${getId}`,
+          const allsavedProfiles = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/getsavedprofile/${getId}`,
           {method : 'GET'})
 
         
