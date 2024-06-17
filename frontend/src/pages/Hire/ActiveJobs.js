@@ -55,7 +55,7 @@ const ActiveJobs = () => {
     try{
   
       console.log("reached...");
-      const getWorkers = await fetch('http://localhost:5000/api/auth/profile/',{
+      const getWorkers = await fetch(`${process.env.REACT_APP_BASE_URL}/api/auth/profile/`,{
         method : 'GET'
       })
   
@@ -68,6 +68,7 @@ const ActiveJobs = () => {
          if(jsonData !== undefined && jsonData.msg.length > 0)
          {
            await DistanceMatrix(jsonData.msg,setActiveWorkers)
+           
           setActiveWorkers([...activeWorkers, ...jsonData.msg])
           console.log(jsonData.msg);
          }
@@ -92,7 +93,7 @@ const ActiveJobs = () => {
     else
     {
        try{
-        const saveWorkerProfile = await fetch(`http://localhost:5000/api/jobs/saveprofile/`, {
+        const saveWorkerProfile = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/saveprofile/`, {
           method: 'PATCH',
           headers : {
             "Content-Type" : "application/json"

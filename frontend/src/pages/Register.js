@@ -53,7 +53,7 @@ const Register = () => {
 
      
 
-     const response =  await axios.post('http://localhost:5000/api/auth/signup', {...formData, subject : "New registration", message: `Hi ${formData.username}, you are successfully registered on EMO. ~Abhishek, founder, EMO `}, {
+     const response =  await axios.post(`${process.env.REACT_APP_BASE_URL}/api/auth/signup`, {...formData, subject : "New registration", message: `Hi ${formData.username}, you are successfully registered on EMO. ~Abhishek, founder, EMO `}, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }

@@ -62,7 +62,7 @@ const CreateJob = () => {
     console.log(formData);
     try{
      
-      const response = await fetch('http://localhost:5000/api/jobs/createjob', {
+      const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/createjob`, {
         method : 'POST',
         headers : {
           "Content-Type" : "application/json"

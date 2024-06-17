@@ -25,7 +25,7 @@ const CompletedJob = () => {
   const fetchCompletedJobs = async(id)=>{
     try{
 
-      const completedJobs = await fetch('http://localhost:5000/api/jobs/getcompletedjob',{
+      const completedJobs = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/getcompletedjob`,{
         method : 'GET'
       });
 

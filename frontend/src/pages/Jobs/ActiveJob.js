@@ -150,7 +150,7 @@ const ActiveJob = () => {
       alert("You need to login to save profile");
     else {
       try {
-        const apply = await fetch(`http://localhost:5000/api/jobs/jobapply`, {
+        const apply = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/jobapply`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

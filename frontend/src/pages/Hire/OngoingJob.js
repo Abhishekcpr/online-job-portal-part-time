@@ -50,7 +50,7 @@ const OngoingJob = () => {
     setShowPopup(true);
     try{
 
-      const jobApplications = await fetch(`http://localhost:5000/api/jobs/getapplications/${id}`) ;
+      const jobApplications = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/getapplications/${id}`) ;
      
       if(jobApplications.ok)
       {
@@ -74,7 +74,7 @@ const OngoingJob = () => {
    
     try{
 
-       const deleteJob = await fetch(`http://localhost:5000/api/jobs/removejob/${id}`,
+       const deleteJob = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/removejob/${id}`,
       { method : 'DELETE'}
       ) ;
 
@@ -105,7 +105,7 @@ const OngoingJob = () => {
         `
       }
      
-      const appComplete = await fetch('http://localhost:5000/api/jobs/completejob', {
+      const appComplete = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/completejob`, {
         method : 'POST',
         headers : {
           "Content-Type" : "application/json"
@@ -127,7 +127,7 @@ const OngoingJob = () => {
   const handleApplicationStatus = async(_id, status)=>{
       try{
 
-          const statusChange = await fetch(`http://localhost:5000/api/jobs/applicationstatus`,{
+          const statusChange = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/applicationstatus`,{
             method : 'PATCH',
             headers : {
               "Content-Type" : "application/json"
@@ -150,7 +150,7 @@ const OngoingJob = () => {
     try {
     
       const getJobs = await fetch(
-        "http://localhost:5000/api/jobs/getalljobs",
+        `${process.env.REACT_APP_BASE_URL}/api/jobs/getalljobs`,
         {
           method: "GET",
         }

@@ -29,7 +29,7 @@ const OngoingJob = () => {
  
   try{
 
-    const jobApplications = await fetch(`http://localhost:5000/api/jobs/getapplicationsbycandidateid/${id}`) ;
+    const jobApplications = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/getapplicationsbycandidateid/${id}`) ;
    
     if(jobApplications.ok)
     {
@@ -61,7 +61,7 @@ const OngoingJob = () => {
 
 const  handleDeleteJob = async(id)=>{
    try{
-      const withdrawApplication = await fetch(`http://localhost:5000/api/jobs/withdraw/${id}`,{
+      const withdrawApplication = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/withdraw/${id}`,{
         method : "PATCH"
       })
 

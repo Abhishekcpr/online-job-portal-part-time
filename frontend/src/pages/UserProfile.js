@@ -53,7 +53,7 @@ const UserProfile = () => {
 
   const {isLoggedIn, setLogin} = useContext(authContext)
   const [myLocationAdd, setLocationAdd] = useState('')
-  const [myLocationCoord, setLocationCoord] = useState('')
+  const [myLocationCoord, setLocationCoord] = useState(null)
   const [userId , setUserId] = useState('')
 
    // dummy object for testing:
@@ -123,7 +123,7 @@ const UserProfile = () => {
 
         try{
 
-          const apiData = await fetch(`http://localhost:5000/api/auth/profile/${userid}`,{
+          const apiData = await fetch(`${process.env.REACT_APP_BASE_URL}/api/auth/profile/${userid}`,{
             method: 'GET'
           })
 
@@ -168,7 +168,7 @@ const UserProfile = () => {
       try{
         let localId = localStorage.getItem('login_id')
         
-        const testimonials = await fetch(`http://localhost:5000/api/jobs/gettestimonial/${userid}`,{
+        const testimonials = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/gettestimonial/${userid}`,{
           method: 'GET'
         })
 
@@ -328,7 +328,7 @@ const UserProfile = () => {
      
      <button onClick={toggleModal}>Close Map</button>
      
-      { profileDetails !==  undefined &&  Maps({ lat: parseFloat(profileDetails.locationCoord[0]), lng: parseFloat(profileDetails.locationCoord[1]) }, { lat: parseFloat(myLocationCoord.latitude), lng: parseFloat(myLocationCoord.longitude) })}
+      { profileDetails !==  undefined && myLocationCoord !== null && Maps({ lat: parseFloat(profileDetails.locationCoord[0]), lng: parseFloat(profileDetails.locationCoord[1]) }, { lat: parseFloat(myLocationCoord.latitude), lng: parseFloat(myLocationCoord.longitude) })}
        
       {/* {
         

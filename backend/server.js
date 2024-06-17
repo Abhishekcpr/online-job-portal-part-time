@@ -16,7 +16,7 @@ app.use(express.json())
 
 
 const corsOptions = {
-    origin: "http://192.168.1.10:3000/",
+    origin: "https://online-job-portal-part-time.vercel.app/",
     methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
     credentials: true,
 };

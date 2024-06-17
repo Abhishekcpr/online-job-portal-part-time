@@ -130,7 +130,7 @@ const Profile = () => {
 
         console.log("ca : ", profileDetails);
 
-        const updateMyDetails = await fetch(`http://localhost:5000/api/auth/profile/${userId}`, {
+        const updateMyDetails = await fetch(`${process.env.REACT_APP_BASE_URL}/api/auth/signup/api/auth/profile/${userId}`, {
           method: 'PATCH',
           headers : {
             "Content-Type" : "application/json"
@@ -159,7 +159,7 @@ const Profile = () => {
 
         try{
 
-          const apiData = await fetch(`http://localhost:5000/api/auth/profile/${localId}`,{
+          const apiData = await fetch(`${process.env.REACT_APP_BASE_URL}/api/auth/signup/api/auth/profile/${localId}`,{
             method: 'GET'
           })
 
@@ -203,7 +203,7 @@ const Profile = () => {
       try{
         let localId = localStorage.getItem('login_id')
         
-        const testimonials = await fetch(`http://localhost:5000/api/jobs/gettestimonial/${localId}`,{
+        const testimonials = await fetch(`${process.env.REACT_APP_BASE_URL}/api/auth/signup/api/jobs/gettestimonial/${localId}`,{
           method: 'GET'
         })
 
