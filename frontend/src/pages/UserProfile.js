@@ -301,9 +301,9 @@ const UserProfile = () => {
           }}
         > 
       
-     { testimonials.length > 0 && testimonials.map((test)=>(
-               Testimonials(test) 
-            ))}
+      {testimonials.length > 0 && testimonials.map((test) => (
+    <Testimonials key={test._id} {...test} />
+))}
 
             </Splide>
           
