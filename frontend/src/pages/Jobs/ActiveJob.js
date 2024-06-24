@@ -73,7 +73,7 @@ const ActiveJob = () => {
     try {
       console.log("reached...");
       const getJobs = await fetch(
-        "http://localhost:5000/api/jobs/getalljobs/",
+        `${process.env.REACT_APP_BASE_URL}/api/jobs/getalljobs/`,
         {
           method: "GET",
         }
