@@ -9,7 +9,7 @@ const Hire = () => {
     flexDirection : 'column',
     height : '70vh' ,
     width : '100vw',
-    fontSize: '1vw'
+    fontSize: '12px'
   }
 
   const imgStyle = {

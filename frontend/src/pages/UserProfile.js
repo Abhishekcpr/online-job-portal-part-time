@@ -56,6 +56,21 @@ const UserProfile = () => {
   const [myLocationCoord, setLocationCoord] = useState(null)
   const [userId , setUserId] = useState('')
 
+
+  useEffect(() => {
+    console.log("id of person", userId);
+    const getId = localStorage.getItem('login_id') ;
+    if(getId !== undefined )
+    {
+      setUserId(getId)
+      doSomething(userId)
+
+    }
+   
+    
+   
+  }, [])
+
    // dummy object for testing:
     const demo=  {
       name : "King coder abhishek",
@@ -200,19 +215,7 @@ const UserProfile = () => {
    await getTestimonials(userId)
  }
 
-    useEffect(() => {
-      console.log("id of person", userId);
-      const getId = localStorage.getItem('login_id') ;
-      if(getId !== undefined )
-      {
-        setUserId(getId)
-        doSomething(userId)
-
-      }
-     
-      
-     
-    }, [])
+   
 
 
     
@@ -277,7 +280,7 @@ const UserProfile = () => {
           </form>
         )}
 
-        <button className="general-btn" onClick={()=>{toggleModal(); console.log(profileDetails)}}>View on map</button>
+        {/* <button className="general-btn" onClick={()=>{toggleModal(); console.log(profileDetails)}}>View on map</button> */}
         
       </div>
     </div>
@@ -310,7 +313,7 @@ const UserProfile = () => {
        </div>
        </div>
 
-       <Modal
+       {/* <Modal
         isOpen={isOpen}
         onRequestClose={toggleModal}
         contentLabel="Map Modal"
@@ -330,13 +333,8 @@ const UserProfile = () => {
      
       { profileDetails !==  undefined && myLocationCoord !== null && Maps({ lat: parseFloat(profileDetails.locationCoord[0]), lng: parseFloat(profileDetails.locationCoord[1]) }, { lat: parseFloat(myLocationCoord.latitude), lng: parseFloat(myLocationCoord.longitude) })}
        
-      {/* {
-        
-        Maps({ lat: 26.759518683020854, lng: 83.42972514397123 }, { lat: 26.73164986689305, lng: 83.43312759582115 })
-       
-      } */}
-        
-      </Modal>
+     
+      </Modal> */}
        </section>
     </>
   )

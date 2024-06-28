@@ -57,7 +57,7 @@ const actionCommand = {
 
     'profile' : {
       description :'User can see their profiles and testimonials given by other users' ,
-      link : 'profile/:id'
+      link : 'profile'
     },
 
     'login' : {

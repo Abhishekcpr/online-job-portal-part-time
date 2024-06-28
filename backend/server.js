@@ -15,10 +15,10 @@ const connectDb = require('./utils/db.js')
 app.use(express.json())
 
 
-// origin: "https://online-job-portal-part-time.vercel.app/",
+// origin: "http://localhost:3000/",
 const corsOptions = {
-   origin: "https://online-job-portal-part-time.vercel.app/",
     methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
+    origin: "https://online-job-portal-part-time.vercel.app/",
     credentials: true,
 };
 app.use(fileUpload());
