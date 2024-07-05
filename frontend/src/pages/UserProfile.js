@@ -57,6 +57,11 @@ const UserProfile = () => {
   const [userId , setUserId] = useState('')
 
 
+  const handleClick = ({source,destination}) => {
+    const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(source)}&destination=${encodeURIComponent(destination)}`;
+    window.open(googleMapsUrl, '_blank');
+  };
+
   useEffect(() => {
     console.log("id of person", userId);
     const getId = localStorage.getItem('login_id') ;
@@ -280,7 +285,7 @@ const UserProfile = () => {
           </form>
         )}
 
-        {/* <button className="general-btn" onClick={()=>{toggleModal(); console.log(profileDetails)}}>View on map</button> */}
+        <button className="general-btn" onClick={()=>{handleClick({source : myLocationAdd, destination : profileDetails.locationAdd})}}>View on map</button>
         
       </div>
     </div>

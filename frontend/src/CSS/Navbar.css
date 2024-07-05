@@ -9,7 +9,7 @@ body{
     justify-content: space-between;
     align-items: center;
     background-color: black;
-    border: 3px solid green ;
+    /* border: 3px solid green ; */
   }
   
   .nav-ul {

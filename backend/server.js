@@ -16,9 +16,10 @@ app.use(express.json())
 
 
 // origin: "http://localhost:3000/",
+
 const corsOptions = {
     methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
-    origin: "https://online-job-portal-part-time.vercel.app/",
+   origin: "https://online-job-portal-part-time.vercel.app/",
     credentials: true,
 };
 app.use(fileUpload());

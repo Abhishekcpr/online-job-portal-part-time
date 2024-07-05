@@ -64,3 +64,8 @@
     border-bottom: 1px solid rgb(119, 114, 114);
   }
  
+  @media (max-width: 600px) {
+    .ongoing-container .popupContent{
+      width: 80%;
+    }
+  }

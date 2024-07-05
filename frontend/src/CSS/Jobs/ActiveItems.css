@@ -68,3 +68,9 @@
     background-color: red;
   }
   
+
+  @media (max-width: 767px) {
+    .popupActiveItem .popup-content{
+      width: 80%;
+    }
+  }
