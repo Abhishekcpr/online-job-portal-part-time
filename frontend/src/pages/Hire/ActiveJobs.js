@@ -17,7 +17,7 @@ const activeComponent = (props) => {
           <p className="rating">{"⭐".repeat(props.rating)}</p>
           <p className="location truncated">{props.locationAdd}</p>
           {/* <p className="skills">{props.skills.join(", ")}</p> */}
-          <p className="skills">Skills :{props.skills}</p>
+          <p className="skills truncated">Skills :{props.skills}</p>
           <p className="wages">Wages :{props.expectedwage}</p>
           {(!(isNaN(props.distance))) ? <p className="distance">Estimated distance :{props.distance/1000} km</p>: <p className="distance">Estimated distance: not known</p>}
           <div className="profile-card-buttons" >

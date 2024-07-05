@@ -15,7 +15,7 @@ const savedComponent = (props) => {
           <p className="rating">{"⭐".repeat(props.rating)}</p>
           <p className="location truncated">{props.locationAdd}</p>
           {/* <p className="skills">{props.skills.join(", ")}</p> */}
-          <p className="skills">Skills :{props.skills}</p>
+          <p className="skills truncated">Skills :{props.skills}</p>
           <p className="wages">Wages :{props.expectedwage}</p>
           <button className="general-btn" onClick={()=> props.removeProfile(props._id)}>Remove Profile</button>
         </div>

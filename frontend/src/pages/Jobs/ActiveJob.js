@@ -12,8 +12,8 @@ const activeComponent = (props) => {
         </div>
         <div className="right-container-info">
           <h3 className="worker-name">{props.employer.username }</h3>
-          <p className="location">Location :{props.locationAdd}</p>
-          <p className="skills">Category :{props.category}</p>
+          <p className="location truncated">Location :{props.locationAdd}</p>
+          <p className="skills truncated">Category :{props.category}</p>
           <p className="skills truncated">Description :{props.description}</p>
           <p className="wages">Expected Budget :{props.budget}</p>
           {/* <button onClick={()=>props.jobApply(props._id, props.employer.email)}>Apply</button> */}
