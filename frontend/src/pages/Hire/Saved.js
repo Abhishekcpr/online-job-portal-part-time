@@ -80,7 +80,7 @@ const removeProfile = async(workerId)=>{
   else
   {
      try{
-      const saveWorkerProfile = await fetch(`http://localhost:5000/api/jobs/removeprofile/`, {
+      const saveWorkerProfile = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/removeprofile/`, {
         method: 'PATCH',
         headers : {
           "Content-Type" : "application/json"

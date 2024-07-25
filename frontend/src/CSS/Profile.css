@@ -190,7 +190,7 @@ input:checked + .slider:before {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  height: 60vh;
+  height: auto;
   /* background-color: cyan; */
 }
 
@@ -305,6 +305,15 @@ input:checked + .slider:before {
 
 /* Media Query */
 @media (max-width: 576px) {
+
+  .profile{
+    column-gap: 20px;
+  }
+  .profile-form{
+    /* background-color: orange; */
+    flex-direction: column;
+    gap : 5px;
+  }
   .splide__slide {
     display: block;
     text-align: center;
@@ -324,6 +333,10 @@ input:checked + .slider:before {
 
   .slider-container .bottom-quote {
     right: 0;
+  }
+
+  .testimonial-container{
+    background-color: orange;
   }
 }
 /* --> */

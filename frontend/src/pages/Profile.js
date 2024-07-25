@@ -40,7 +40,9 @@ const Testimonials = (props)=>{
 
   )
 }
-// -->
+
+
+
 const Profile = () => {
 
   const {isLoggedIn, setLogin} = useContext(authContext)
@@ -340,13 +342,13 @@ const Profile = () => {
     
       {
         testimonials.length > 0 &&   <div className="testimonial-container">
+     
+
+      <div className="slider-container">
       <div className="title">
         <h2>Testimonial</h2>
          
       </div>
-
-      <div className="slider-container">
-        
 
         <Splide
           options={{
