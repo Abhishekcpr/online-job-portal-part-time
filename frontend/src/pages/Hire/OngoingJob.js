@@ -5,6 +5,7 @@ const OngoingJob = () => {
  
   const [showPopup, setShowPopup] = useState(false);
   const [showPopupTestimonial, setShowPopupTestimonial] = useState(false);
+  const [showPopupEditJob, setshowPopupEditJob] = useState(false);
   const [selectedJob, setSelectedJob] = useState(null);
   const [activeJobs, setActiveJobs] = useState([]);
   const [applications, setApplications] = useState([]);
@@ -26,6 +27,8 @@ const OngoingJob = () => {
 
   });
 
+  
+
   // form for changing job details :
   const [JobData, setJobData] = useState({
     
@@ -34,7 +37,8 @@ const OngoingJob = () => {
     duration : "",
     budget : 0,
     isJobOpen : true,
-    description : ""
+    description : "",
+    category : ""
     
 
  });
@@ -230,6 +234,91 @@ const OngoingJob = () => {
           ))}
         </tbody>
       </table>
+
+      {/* edit form starts */}
+      {showPopupEditJob && (
+        (
+        <div className="popupActiveItem">
+          <div className="popup-content">
+            <h2>Edit Job Details</h2>
+            <form onSubmit={handleCompleteApplication}>
+              <label htmlFor="jobId">Job Id :</label>
+              <input
+                type="text"
+                id="jobId"
+                name="jobId"
+                value={formData.employee}
+               
+              />
+
+
+              <label htmlFor="startDate">Start Date</label>
+              <input
+                type="date"
+                id="startDate"
+                name="startDate"
+                value={formData.startDate}
+                onChange={handleTestimonialChange}
+              />
+
+              <label htmlFor="endDate">End Date</label>
+              <input
+                type="date"
+                id="endDate"
+                name="endDate"
+                value={formData.endDate}
+                onChange={handleTestimonialChange}
+              />
+
+              <label htmlFor="salary">Salary Given</label>
+              <input
+                type="text"
+                id="salary"
+                name="salary"
+                value={formData.salary}
+                onChange={handleTestimonialChange}
+              />
+
+              <label htmlFor="rating">Rating (out of 5)</label>
+              <input
+                type="text"
+                id="rating"
+                name="rating"
+                value={formData.rating}
+                onChange={handleTestimonialChange}
+                />
+
+              <label htmlFor="message">Feedback</label>
+              <input
+                type="textarea"
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleTestimonialChange}
+               
+              />
+
+
+             
+
+              <div className="buttons">
+                <button type="submit" className="apply-btn" >
+                  Save
+                </button>
+                <button
+                  type="button"
+                  className="cancel-btn"
+                  onClick={() => setShowPopupTestimonial(false)}
+                >
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )
+      )}
+      {/* edit form ends  */}
 
       {showPopup && (
         <div className="popup">

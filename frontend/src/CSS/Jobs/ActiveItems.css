@@ -73,4 +73,10 @@
     .popupActiveItem .popup-content{
       width: 80vw;
     }
+
+    .popupActiveItem{
+      position : absolute;
+      display: flex;
+      
+    }
   }

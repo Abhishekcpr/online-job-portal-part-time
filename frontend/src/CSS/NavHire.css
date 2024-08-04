@@ -23,7 +23,8 @@ font-weight: 800;
     .navjobs-container ul
     {
         gap : 2vw;
-        padding : 2vw;
+        padding : 3vw;
         flex-direction: column;
     }
+    
 }
