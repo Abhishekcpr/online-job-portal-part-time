@@ -56,16 +56,16 @@ connectDb().then(()=>{
     
 })
 // Launch the bot
-bot.launch().catch(error => {
-    console.error('Failed to launch bot:', error);
-});
+// bot.launch().catch(error => {
+//     console.error('Failed to launch bot:', error);
+// });
 
-// Enable graceful stop
-process.once('SIGINT', () => {
-    console.log('Received SIGINT, stopping bot...');
-    bot.stop('SIGINT');
-});
-process.once('SIGTERM', () => {
-    console.log('Received SIGTERM, stopping bot...');
-    bot.stop('SIGTERM');
-});
+// // Enable graceful stop
+// process.once('SIGINT', () => {
+//     console.log('Received SIGINT, stopping bot...');
+//     bot.stop('SIGINT');
+// });
+// process.once('SIGTERM', () => {
+//     console.log('Received SIGTERM, stopping bot...');
+//     bot.stop('SIGTERM');
+// });
