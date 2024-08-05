@@ -1,6 +1,7 @@
 const express = require('express')
 require('dotenv').config({})
 const cors = require('cors')
+const bot = require("./utils/telegramBot.js")
 const router = require('./router/auth-router.js')
 const contactRouter = require('./router/contact-router.js')
 const jobsRouter  =  require('./router/jobs-router.js')
@@ -8,7 +9,6 @@ const bodyParser = require('body-parser');
 const geminiRouter = require('./router/gemini-router.js')
 const app = express()
 const fileUpload = require('express-fileupload');
-const bot = require("./utils/telegramBot.js")
 
 
 
@@ -55,9 +55,17 @@ connectDb().then(()=>{
     })
     
 })
-
-// bot.launch()
+// Launch the bot
+bot.launch().catch(error => {
+    console.error('Failed to launch bot:', error);
+});
 
 // Enable graceful stop
-// process.once('SIGINT', () => bot.stop('SIGINT'))
-// process.once('SIGTERM', () => bot.stop('SIGTERM'))
+process.once('SIGINT', () => {
+    console.log('Received SIGINT, stopping bot...');
+    bot.stop('SIGINT');
+});
+process.once('SIGTERM', () => {
+    console.log('Received SIGTERM, stopping bot...');
+    bot.stop('SIGTERM');
+});
