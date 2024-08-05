@@ -16,6 +16,9 @@ const connectDb = require('./utils/db.js')
 app.use(express.json())
 
 
+console.log("token",process.env.TELEGRAM_BOT_API);
+
+
 // origin: "http://localhost:3000/",
 const corsOptions = {
     methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
@@ -56,5 +59,5 @@ connectDb().then(()=>{
 bot.launch()
 
 // Enable graceful stop
-process.once('SIGINT', () => bot.stop('SIGINT'))
-process.once('SIGTERM', () => bot.stop('SIGTERM'))
+// process.once('SIGINT', () => bot.stop('SIGINT'))
+// process.once('SIGTERM', () => bot.stop('SIGTERM'))
