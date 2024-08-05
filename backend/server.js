@@ -20,10 +20,11 @@ console.log("token",process.env.TELEGRAM_BOT_API);
 
 
 // origin: "http://localhost:3000/",
+// origin: "https://online-job-portal-part-time.vercel.app/",
 const corsOptions = {
     methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
-    origin: "https://online-job-portal-part-time.vercel.app/",
     credentials: true,
+    origin : "*"
 };
 app.use(fileUpload());
 app.use(cors())
