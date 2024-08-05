@@ -165,21 +165,27 @@ const getSavedProfile = async (req, res) => {
 
         if(applyToJob)
         {
-            console.log(req.body.workerMail, req.body.employerMail);
-            const mailResponse1 =   await sendMail(req.body.workerMail,res) ;
-            const mailResponse2 = await sendMail(req.body.employerMail,res) ;
+            // console.log(req.body.workerMail, req.body.employerMail);
+            // const mailResponse1 =   await sendMail(req.body.workerMail,res) ;
+            // const mailResponse2 = await sendMail(req.body.employerMail,res) ;
 
             
            
             // console.log(applyToJob);
-            res.status(200).send({msg: "Job applied successfully"})
+            res.status(201).send({msg: "Job applied successfully"})
+        }
+        else
+        {
+            res.status(401).send({msg : "Could not apply"})
         }
 
         
 
     }catch(err)
     {
-        res.status(400).send(`Error : ${err}`)
+        console.log("The error : "+err);
+        
+        res.status(400).send({msg : `Error : ${err}`})
     }
   }
 
