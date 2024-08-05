@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const geminiRouter = require('./router/gemini-router.js')
 const app = express()
 const fileUpload = require('express-fileupload');
+const bot = require("./utils/telegramBot.js")
 
 
 
@@ -16,10 +17,9 @@ app.use(express.json())
 
 
 // origin: "http://localhost:3000/",
-
 const corsOptions = {
     methods: "GET, POST, PUT, DELETE, PATCH, HEAD",
-   origin: "https://online-job-portal-part-time.vercel.app/",
+    origin: "https://online-job-portal-part-time.vercel.app/",
     credentials: true,
 };
 app.use(fileUpload());
@@ -33,6 +33,8 @@ app.use('/api/', geminiRouter)
 
 
 const PORT = process.env.PORT || 5000
+
+
 
 app.get('/', (req,res)=>{
     console.log("gupt kode");
@@ -50,3 +52,9 @@ connectDb().then(()=>{
     })
     
 })
+
+bot.launch()
+
+// Enable graceful stop
+process.once('SIGINT', () => bot.stop('SIGINT'))
+process.once('SIGTERM', () => bot.stop('SIGTERM'))
