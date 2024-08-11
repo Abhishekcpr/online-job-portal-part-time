@@ -200,8 +200,8 @@ const OngoingJob = () => {
   return (
     <>
       <NavHire/>
-      <div className="outer" style={{height:'70vh'}}>
       <h1 className="heading-center">Ongoing Jobs</h1>
+      <div className="outer" style={{height:'70vh'}}>
       <div className="ongoing-container">
       <table className="tables">
         <thead>

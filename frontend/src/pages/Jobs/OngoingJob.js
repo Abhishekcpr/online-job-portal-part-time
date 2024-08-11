@@ -89,8 +89,8 @@ const  handleDeleteJob = async(id)=>{
   return (
     <>
       <NavJob/>
-       <div className="outer" style={{height:'70vh'}}>
        <h1 className="heading-center">Applied Jobs</h1>
+       <div className="outer" style={{height:'70vh'}}>
         <div className="ongoing-container">
         <table className="tables">
           <thead>

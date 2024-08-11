@@ -16,7 +16,7 @@ const connectDb = require('./utils/db.js')
 app.use(express.json())
 
 
-console.log("token",process.env.TELEGRAM_BOT_API);
+// console.log("token",process.env.TELEGRAM_BOT_API);
 
 
 // origin: "http://localhost:3000/",
@@ -41,8 +41,7 @@ const PORT = process.env.PORT || 5000
 
 
 app.get('/', (req,res)=>{
-    console.log("gupt kode");
-    res.send('<h1>Hey there I am Abhishek</h1>')
+    res.send('<h1>Hey there...</h1>')
 })
 
 connectDb().then(()=>{
@@ -56,17 +55,3 @@ connectDb().then(()=>{
     })
     
 })
-// Launch the bot
-// bot.launch().catch(error => {
-//     console.error('Failed to launch bot:', error);
-// });
-
-// // Enable graceful stop
-// process.once('SIGINT', () => {
-//     console.log('Received SIGINT, stopping bot...');
-//     bot.stop('SIGINT');
-// });
-// process.once('SIGTERM', () => {
-//     console.log('Received SIGTERM, stopping bot...');
-//     bot.stop('SIGTERM');
-// });
