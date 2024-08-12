@@ -16,7 +16,7 @@ import getGeminiResponse from "../utils/geminiResponse";
   const [transcript, setTranscript] = useState('');
   const [searchText, setSearchText] = useState('')
   const [isListening, setIsListening] = useState(false);
-  const recognition = new window.webkitSpeechRecognition(); // For Chrome
+  const recognition = new window.webkitSpeechRecognition(); 
   const {isLoggedIn, setLogin} = useContext(authContext)
   const [geminiResponse, setGeminiResponse] = useState("")
   const arrayLinks = ["home", "about" , "contact" , "services","login", "signup","logout","jobs" , "hire"] ;
@@ -28,7 +28,7 @@ import getGeminiResponse from "../utils/geminiResponse";
   const navigate = useNavigate()
   const [navOpen , setNavOpen] = useState(false)
 
-  recognition.lang = 'en-US'; // Set language to English
+  recognition.lang = 'en-US';
 
   recognition.onstart = () => {
     setIsListening(true);
@@ -39,8 +39,7 @@ import getGeminiResponse from "../utils/geminiResponse";
     const currentTranscript = event.results[0][0].transcript;
     console.log("The text given is=>", currentTranscript);
     setTranscript(currentTranscript);
-  //  const theGeminiResponse = await getGeminiResponse(transcript)
-  //  alert(theGeminiResponse.bot)
+  
   };
 
   recognition.onerror = event => {
@@ -59,13 +58,12 @@ import getGeminiResponse from "../utils/geminiResponse";
     const prefixCmd =  JSON.stringify(actionCommand)  +  " Use this json to find most suitable key according to description and return the key only, you may need to translate the prompt."
     let apiData = await getGeminiResponse( prefixCmd+ transcript);
    
-    // if(apiData!= undefined)
     console.log("api data", apiData);
 
     if(apiData !== undefined)
     {
        apiData = apiData.toLowerCase()
-      console.log("my transcript=>", typeof(apiData));
+      // console.log("my transcript=>", typeof(apiData));
         for( let val in actionCommand)
         { 
 

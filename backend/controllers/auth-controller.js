@@ -123,7 +123,7 @@ catch(err)
 }
 
 const getAllWorkers = async(req,res)=>{
-    console.log("profiler");
+    // console.log("profiler");
 
     try{
         const getData = await User.find({}) ;

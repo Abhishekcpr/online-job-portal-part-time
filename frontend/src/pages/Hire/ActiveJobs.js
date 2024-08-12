@@ -54,7 +54,6 @@ const ActiveJobs = () => {
   const fetchWorkers = async()=>{
     try{
   
-      console.log("reached...");
       const getWorkers = await fetch(`${process.env.REACT_APP_BASE_URL}/api/auth/profile/`,{
         method : 'GET'
       })
