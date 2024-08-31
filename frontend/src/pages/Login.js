@@ -16,6 +16,16 @@ const LoginPage = () => {
 
  
   const navigate = useNavigate()
+  const handleGuestLogin = async(e)=>{
+    e.preventDefault();
+    setLoginDetails({
+      phone : 9211,
+      password : "9211"
+    })
+
+    if(loginDetails.password && loginDetails.password)
+    handleLogin(e) ;
+  }
   const handleLogin = async(e) => {
     e.preventDefault();
     
@@ -113,6 +123,7 @@ const LoginPage = () => {
           onChange={(e) => handleChange(e)}
         />
         <button type="submit">Login</button>
+        <button onClick={handleGuestLogin}>Login as guest</button>
         <button onClick={()=>{ navigate('/signup')}} >Register</button>
       </form>
     </div>

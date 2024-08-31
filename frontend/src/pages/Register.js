@@ -3,6 +3,8 @@ import '../CSS/Register.css'
 import getCurrentLocation from '../utils/useCurrentLocation';
 import { json, useNavigate } from 'react-router-dom'; 
 import axios from 'axios'
+import { toast } from 'react-toastify';
+
 const Register = () => {
 
   const [mylocationCoord , setLocationCoord] = useState([])
@@ -75,19 +77,19 @@ const Register = () => {
           dob: '',
         });
        
-        alert("Registration successful !!!")
+        toast.success("Registration successful !!!")
         navigate('/login')
         
       }
       else
       {
-        // const jsonData = await response.json()
+        const jsonData = await response.json()
         console.log("error->" , response);
-        // alert(jsonData.msg)
+        toast.error(jsonData.msg)
       }
 
      } catch(err){
-       console.log("Error:", err);
+       toast.error("Error:", err);
      } 
 
    
