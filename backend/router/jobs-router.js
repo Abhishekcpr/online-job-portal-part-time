@@ -1,9 +1,10 @@
 const express = require('express')
 const jobsController = require('../controllers/jobs-controller.js')
+const verifyToken = require('../middleware/jobs-middleware.js')
 const jobsRouter = express.Router()
 
 jobsRouter.route('/createjob').post(jobsController.createJob)
-jobsRouter.route('/getalljobs').get(jobsController.getAllJobs)
+jobsRouter.route('/getalljobs').get(verifyToken,jobsController.getAllJobs)
 jobsRouter.route('/getallworkers').get(jobsController.getAllWorkers)
 jobsRouter.route('/saveprofile').patch(jobsController.saveProfile)
 jobsRouter.route('/removeprofile').patch(jobsController.removeProfile)

@@ -26,7 +26,7 @@ const actionCommand = {
     },
 
     'ongoing_job' : {
-      description :'User can find status and withdraw from jobs they applied' ,
+      description :'User can find status and withdraw from jobs they applied on some job' ,
       link : 'jobs/ongoingjob'
     },
 
@@ -46,7 +46,7 @@ const actionCommand = {
     },
 
     'hire_ongoingjob' : {
-      description :'User can edit, delete created jobs and view applications on their created jobs and accept/ reject applications' ,
+      description :'User can edit, delete created jobs and view applications received for their created jobs and accept/ reject applications from other workers' ,
       link : 'hire/active'
     },
 
@@ -55,8 +55,13 @@ const actionCommand = {
       link : 'hire/completedjob'
     },
 
+    'saved_profiles' : {
+      description :'This page consist of all the profiles saved by the user on their account for future reference' ,
+      link : 'hire/saved'
+    },
+
     'profile' : {
-      description :'User can see their profiles and testimonials given by other users' ,
+      description :'User can see their own profile and update information and can see testimonials given by other users' ,
       link : 'profile'
     },
 

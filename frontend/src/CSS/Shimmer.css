@@ -1,0 +1,7 @@
+.shimmer-ui{
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    padding: 3vw;
+    gap: 2vw;;
+}

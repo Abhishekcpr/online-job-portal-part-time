@@ -1,5 +1,7 @@
 import React, { useEffect,useState } from 'react'
 import NavHire from '../../components/NavHire'
+import { toast } from 'react-toastify';
+
 import '../../CSS/Hire/ActiveJob.css'
 
 
@@ -45,13 +47,18 @@ const Saved = () => {
          const getId = localStorage.getItem('login_id');
          if(getId == undefined)
          {
-          alert('You need to login to get saved profiles!!!')
+          toast.error('You need to login to get saved profiles!!!')
          }
          else
          {
-          
+          const token = await localStorage.getItem('token')
           const allsavedProfiles = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/getsavedprofile/${getId}`,
-          {method : 'GET'})
+          {method : 'GET',
+            headers: {
+              'Authorization': `${token}`, 
+              'Content-Type': 'application/json',
+          },
+          })
 
         
           if(allsavedProfiles.ok)
@@ -63,28 +70,30 @@ const Saved = () => {
           }
           else
           {
-            alert(`Unable to fetch saved profiles`);
+            toast.error(`Unable to fetch saved profiles`);
           }
          }
         
     } catch(err)
     {
-       alert(`Error: ${err}`)
+       toast.error(`Error: ${err}`)
     }
 }
 
 const removeProfile = async(workerId)=>{
   const getId = localStorage.getItem('login_id') ;
   if(getId == undefined)
-  alert('You need to login to remove profile')
+  toast.error('You need to login to remove profile')
   else
   {
      try{
+      const token = await localStorage.getItem('token')
       const saveWorkerProfile = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/removeprofile/`, {
         method: 'PATCH',
-        headers : {
-          "Content-Type" : "application/json"
-        },
+        headers: {
+          'Authorization': `${token}`, 
+          'Content-Type': 'application/json',
+      },
         body: JSON.stringify({userId : getId, workerId})
       })
 
@@ -93,11 +102,11 @@ const removeProfile = async(workerId)=>{
         setSavedWorkers(savedWorkers.filter((profiles)=>{
           return profiles._id !== workerId
         }))
-        alert("Profile removed")
+        toast.success("Profile removed")
       }
       // console.log(saveWorkerProfile);
      }catch(err){
-       alert(`Error : ${err}`)
+       toast.error(`Error : ${err}`)
      }
   }
 }

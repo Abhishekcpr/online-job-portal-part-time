@@ -8,8 +8,6 @@ import actionCommand from "../utils/actionCommands";
 import getGeminiResponse from "../utils/geminiResponse";
 
 
-
-
  const Navbar = () => {
 
   // listening module 
@@ -92,6 +90,7 @@ import getGeminiResponse from "../utils/geminiResponse";
       setLogin(false) ;
       localStorage.removeItem('login_id') ;
       localStorage.removeItem('login_detail') ;
+      localStorage.removeItem('token') ;
     }
 
     function toggleCollapse()

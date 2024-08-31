@@ -147,12 +147,12 @@ const getSavedProfile = async (req, res) => {
 
   const jobApply = async(req,res)=>{
     try{
-        const {userId, jobId,demandedBudget,description} = req.body ;
+        const {userId, jobId,demandedBudget,description,workerMail="", employerMail=""} = req.body ;
         const applicationExist = await AppliedJob.find({candidate: userId,job : jobId});
 
         if(applicationExist && applicationExist.length > 0)
         {
-            return res.status(400).send({msg:"Already applied"})
+            return res.status(401).send({msg:"Already applied"})
         }
 
         const applyToJob = await AppliedJob.create({
@@ -166,8 +166,11 @@ const getSavedProfile = async (req, res) => {
         if(applyToJob)
         {
             // console.log(req.body.workerMail, req.body.employerMail);
-            // const mailResponse1 =   await sendMail(req.body.workerMail,res) ;
-            // const mailResponse2 = await sendMail(req.body.employerMail,res) ;
+           if(req.body.workerMail.length > 0 && req.body.employerMail.length > 0)
+           {
+            const mailResponse1 =   await sendMail(req.body.workerMail,res) ;
+            const mailResponse2 = await sendMail(req.body.employerMail,res) ;
+           }
 
             
            

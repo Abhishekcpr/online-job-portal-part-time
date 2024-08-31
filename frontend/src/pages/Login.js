@@ -3,12 +3,15 @@ import '../CSS/Login.css'
 import { useContext } from 'react';
 import authContext from '../utils/authContext';
 import { json, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import Spinner from '../components/Spinner';
 const LoginPage = () => {
   const [loginDetails, setLoginDetails] = useState({
     phone: "",
     password: ""
   })
   const [error, setError] = useState('');
+  const [isLoading, setLoading] = useState(false);
   const {isLoggedIn, setLogin} = useContext(authContext)
 
  
@@ -18,7 +21,7 @@ const LoginPage = () => {
     
    
    
-
+      setLoading(true)
     try{
 
       const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/auth/login`, {
@@ -40,32 +43,38 @@ const LoginPage = () => {
           id : jsonData.userId,
           username : jsonData.username,
           email : jsonData.email,
+          token : jsonData.token
          
         } ;
 
         localStorage.setItem('login_detail' , JSON.stringify(userObj));
         localStorage.setItem('login_id', jsonData.userId)
+        localStorage.setItem('token', jsonData.token)
       
        
         //  toast.success("Login successfull")
         setLogin(true)
-        alert("Login successfull ...")
+        setLoading(false)
+        toast.success("Login successfull ...")
+
         // setLocalToken(jsonData.token)
         navigate('/profile') ;
       }
       else
       {
         const jsonData = await response.json()
-       alert(jsonData.msg);
-        // toast.error(jsonData.msg)
+      //  alert(jsonData.msg);
+      setLoading(false)
+        toast.error(jsonData.msg)
       }
       
      } catch(err)
      {
+      setLoading(false)
       console.log(err);
      }
    
-    console.log(loginDetails);
+    // console.log(loginDetails);
   };
 
   function handleChange(e)
@@ -79,6 +88,11 @@ const LoginPage = () => {
     })
   }
 
+  if(isLoading)
+  {
+    return <Spinner/>
+  }
+
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={handleLogin}>
@@ -86,7 +100,7 @@ const LoginPage = () => {
         {error && <p className="error-message">{error}</p>}
         <input
           type="text"
-          placeholder="Phone number"
+          placeholder="Phone Number"
           name = "phone"
           value={loginDetails.phone}
           onChange={(e) => handleChange(e)}

@@ -2,7 +2,11 @@ import React,{useEffect, useState} from "react";
 import NavHire from "../../components/NavHire";
 import '../../CSS/Hire/ActiveJob.css'
 import DistanceMatrix from "../../utils/distanceMatrix";
+import { toast } from 'react-toastify';
 import { json, useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
+import Shimmer from "../../components/Shimmer";
+
 
 
 const activeComponent = (props) => {
@@ -19,7 +23,7 @@ const activeComponent = (props) => {
           {/* <p className="skills">{props.skills.join(", ")}</p> */}
           <p className="skills truncated">Skills :{props.skills}</p>
           <p className="wages">Wages :{props.expectedwage}</p>
-          {(!(isNaN(props.distance))) ? <p className="distance">Estimated distance :{props.distance/1000} km</p>: <p className="distance">Estimated distance: not known</p>}
+          {/* {(!(isNaN(props.distance))) ? <p className="distance">Estimated distance :{props.distance/1000} km</p>: <p className="distance">Estimated distance: not known</p>} */}
           <div className="profile-card-buttons" >
           <button className="general-btn" onClick={()=> props.saveProfile(props._id)}>Save Profile</button>
           <button className="general-btn" onClick={()=> props.viewProfile(props._id)}>View Profile</button>
@@ -47,9 +51,8 @@ const ActiveJobs = () => {
 
   // skills : ["app development", "Web designing", "Code reviewer"],
 
-  const [activeWorkers, setActiveWorkers] = useState([])
+  // const [activeWorkers, setActiveWorkers] = useState([])
   const [activePage, setActivePage] = useState(false)
-  
 
   const fetchWorkers = async()=>{
     try{
@@ -66,10 +69,11 @@ const ActiveJobs = () => {
         
          if(jsonData !== undefined && jsonData.msg.length > 0)
          {
-           await DistanceMatrix(jsonData.msg,setActiveWorkers)
+          //  await DistanceMatrix(jsonData.msg,setActiveWorkers)
            
-          setActiveWorkers([...activeWorkers, ...jsonData.msg])
-          console.log(jsonData.msg);
+          // setActiveWorkers([...activeWorkers, ...jsonData.msg])
+          // console.log(jsonData.msg);
+          return jsonData.msg
          }
       }
 
@@ -77,9 +81,21 @@ const ActiveJobs = () => {
   
     } catch(err)
     {
-      alert(err)
+      toast.error(err)
     }
   }
+
+  const { isLoading, error, data:activeWorkers } = useQuery({
+    queryKey: ['activeWorkers'],
+    queryFn: fetchWorkers
+  });
+  
+  
+  if(isLoading)
+  {
+    return <Shimmer/>
+  }
+  
 
   const viewProfile = (workerId)=>{
     navigate('/user-profile/' + workerId) ;
@@ -88,7 +104,7 @@ const ActiveJobs = () => {
   const saveProfile = async(workerId)=>{
     const getId = localStorage.getItem('login_id') ;
     if(getId == undefined)
-    alert('You need to login to save profile')
+    toast.error('You need to login to save profile')
     else
     {
        try{
@@ -102,31 +118,31 @@ const ActiveJobs = () => {
 
         if(saveWorkerProfile.ok)
         {
-          alert("Profile saved")
+          toast.success("Profile saved")
         }
        
         // console.log(saveWorkerProfile);
        }catch(err){
-         alert(`Error : ${err}`)
+         toast.error(`Error : ${err}`)
        }
     }
   }
 
-  async function  doSomething()
-  {
-   const getWorkers =  await fetchWorkers()
-    if(getWorkers)
-      {
-        await DistanceMatrix(activeWorkers,setActiveWorkers)
-      }
-  }
+  // async function  doSomething()
+  // {
+  //  const getWorkers =  await fetchWorkers()
+  //   if(getWorkers)
+  //     {
+  //       await DistanceMatrix(activeWorkers,setActiveWorkers)
+  //     }
+  // }
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    setActivePage(true)
-    doSomething()
+  //   setActivePage(true)
+  //   doSomething()
 
-  }, [])
+  // }, [])
   
   return (
     <>
@@ -137,8 +153,8 @@ const ActiveJobs = () => {
        <div className="active-worker-container">
       
 
-       {(activeWorkers.length == 0)? <center><h3>There are no active workers</h3></center> : 
-        activeWorkers.map((element)=>{
+       {(activeWorkers== undefined || activeWorkers.length == 0)? <center><h3>There are no active workers</h3></center> : 
+        activeWorkers?.map((element)=>{
           return activeComponent({...element, saveProfile, activePage,viewProfile})
         })
        }

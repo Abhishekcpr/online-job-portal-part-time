@@ -24,7 +24,8 @@ import CompletedJob from './pages/Jobs/CompletedJob'
 import PendingJob from './pages/Jobs/PendingJob'
 import ActiveJob from './pages/Jobs/ActiveJob'
 import UserProfile from './pages/UserProfile'
-
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+const queryClient = new QueryClient();
 
 
 
@@ -36,11 +37,14 @@ const AppLayout = ()=>{
   
   return (
     <>
+      <QueryClientProvider client={queryClient}>
+        
       <authContext.Provider value = {{isLoggedIn, setLogin, navHireActive, setNavHire}}>
       <Navbar/>
       <Outlet/>
       <Footer/>
       </authContext.Provider>
+      </QueryClientProvider>
     </>
   )
 }

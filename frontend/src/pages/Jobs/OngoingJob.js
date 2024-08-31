@@ -1,5 +1,7 @@
 import React,{useEffect,useState} from 'react'
 import NavJob from '../../components/NavJob'
+import { toast } from 'react-toastify';
+
 import '../../CSS/Hire/Ongoing.css'
 
 const OngoingJob = () => {
@@ -52,7 +54,7 @@ const OngoingJob = () => {
 
   }catch(err)
   {
-    alert(`Error: ${err}`)
+    toast.error(`Error: ${err}`)
   }
 
 };
@@ -61,19 +63,24 @@ const OngoingJob = () => {
 
 const  handleDeleteJob = async(id)=>{
    try{
+    const token = await localStorage.getItem('token')
       const withdrawApplication = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/withdraw/${id}`,{
-        method : "PATCH"
+        method : "PATCH",
+        headers: {
+          'Authorization': `${token}`, 
+          'Content-Type': 'application/json',
+      },
       })
 
       if(withdrawApplication.ok)
         {
           const message = await withdrawApplication.json()
           console.log(message);
-          alert(message.msg)
+          toast.success(message.msg)
         }
    } catch(err)
    {
-    alert(`Error : ${err}`)
+    toast.error(`Error : ${err}`)
    }
 }
 

@@ -5,10 +5,14 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { createBrowserRouter,RouterProvider } from 'react-router-dom';
 import appProvider from './App';
-
+import {ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-   <RouterProvider router = {appProvider}/>
+   <>
+      <RouterProvider router = {appProvider}/>
+      <ToastContainer/>
+   </>
    
 );
 

@@ -1,4 +1,5 @@
 import NavJob from '../../components/NavJob'
+import { toast } from 'react-toastify';
 
 import React, {useState,useEffect} from 'react'
 import '../../CSS/Hire/Ongoing.css'
@@ -25,8 +26,13 @@ const CompletedJob = () => {
   const fetchCompletedJobs = async(id)=>{
     try{
 
+      const token = await localStorage.getItem('token')
       const completedJobs = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/getcompletedjob`,{
-        method : 'GET'
+        method : 'GET',
+        headers: {
+          'Authorization': `${token}`, 
+          'Content-Type': 'application/json',
+      },
       });
 
       if(completedJobs.ok)
@@ -40,7 +46,7 @@ const CompletedJob = () => {
       }
     }catch(err)
     {
-      alert(`Error: ${err}`)
+      toast.error(`Error: ${err}`)
     }
   }
 

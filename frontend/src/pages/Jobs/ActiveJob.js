@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useQuery } from '@tanstack/react-query';
 import NavJob from "../../components/NavJob";
 import "../../CSS/Jobs/ActiveItems.css";
+import { toast } from 'react-toastify';
+import Shimmer from "../../components/Shimmer";
+
+
+
 const activeComponent = (props) => {
   console.log("the style -=>",(props.employer != undefined ? "" : props));
   return (
@@ -40,7 +46,7 @@ const ActiveJob = () => {
 
   // skills : ["app development", "Web designing", "Code reviewer"],
 
-  const [activeJobs, setActiveJobs] = useState([sampleObject]);
+  // const [activeJobs, setActiveJobs] = useState([sampleObject]);
   const [activePage, setActivePage] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
 
@@ -58,6 +64,16 @@ const ActiveJob = () => {
     messageToRecruiter: "",
   });
 
+  const { isLoading, error, data:activeJobs } = useQuery({
+    queryKey: ['activeJobs'],
+    queryFn: fetchJobs
+  });
+
+  if (isLoading) {
+    return  <Shimmer/>
+  }
+  if (error) return `An error has occurred: ${error.message}`;
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -69,35 +85,49 @@ const ActiveJob = () => {
     console.log(formData);
   };
 
-  const fetchJobs = async () => {
+
+
+   async function fetchJobs ()  {
     try {
       console.log("reached...");
+
+      const token = await localStorage.getItem('token')
       const getJobs = await fetch(
         `${process.env.REACT_APP_BASE_URL}/api/jobs/getalljobs/`,
         {
           method: "GET",
+          headers: {
+            'Authorization': `${token}`, 
+            'Content-Type': 'application/json',
+        },
         }
       );
 
       console.log(getJobs);
 
+      const jsonData = await getJobs.json();
+
+
+      
       if (getJobs.ok) {
-        const jsonData = await getJobs.json();
 
         if (jsonData !== undefined && jsonData.msg.length > 0) {
 
          const allOpenJobs =  jsonData.msg.filter((jobs)=>{
              return jobs.isJobOpen == true
           })
-          setActiveJobs([...allOpenJobs]);
+          // setActiveJobs([...allOpenJobs]);
+          return allOpenJobs
 
-          console.log(jsonData.msg);
+          // console.log(jsonData.msg);
         }
+        
       }
+      
 
-      console.log("new", activeJobs);
+      // console.log("new", activeJobs);
     } catch (err) {
-      alert(err);
+      toast.error(err);
     }
   };
 
@@ -129,7 +159,7 @@ const ActiveJob = () => {
 
     if(employerId === getId)
     {
-      alert("You can't apply to your own created job")
+      toast.error("You can't apply to your own created job")
       return ;
     }
 
@@ -147,14 +177,17 @@ const ActiveJob = () => {
       message: `${getDetails.username} applied to the job : ${jobId} you created. View complete details on EMO website`,
     };
     if (getId == undefined || getDetails == undefined)
-      alert("You need to login to save profile");
+      toast.error("You need to login to save profile");
     else {
       try {
+
+        const token = await localStorage.getItem('token')
         const apply = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/jobapply`, {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
-          },
+            'Authorization': `${token}`, 
+            'Content-Type': 'application/json',
+        },
           body: JSON.stringify({
             userId: getId,
             jobId,
@@ -166,11 +199,16 @@ const ActiveJob = () => {
         });
 
         if (apply.ok) {
-          alert("Job applied successfully");
+          toast.success("Job applied successfully");
+        }
+        else if(apply.status == 401)
+        {
+          const errorMessage = "Already applied to this job"
+          toast.error(errorMessage)
         }
         // console.log(saveWorkerProfile);
       } catch (err) {
-        alert(`Error : ${err}`);
+        toast.error(`Error : ${err}`);
       }
     }
   };
@@ -179,15 +217,16 @@ const ActiveJob = () => {
     await fetchJobs();
   }
 
-  useEffect(() => {
-    setActivePage(true);
-    doSomething();
-  }, []);
+  // useEffect(() => {
+  //   setActivePage(true);
+  //   doSomething();
+  // }, []);
+
+ 
 
   return (
     <>
       <NavJob />
-
       {showPopup && (
         <div className="popupActiveItem">
           <div className="popup-content">
@@ -300,7 +339,7 @@ const ActiveJob = () => {
       <h1 className="active-worker-heading heading-center">Active Jobs</h1>
 
       <div className="active-worker-container">
-        {activeJobs.length == 0 || activeJobs[0] === null ? (
+        {activeJobs == undefined ||  activeJobs.length == 0 || activeJobs[0] === null ? (
           <center>
             <h3>There are no active jobs</h3>
           </center>

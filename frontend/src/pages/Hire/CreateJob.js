@@ -3,6 +3,7 @@ import NavHire from '../../components/NavHire'
 import '../../CSS/Hire/CreateJob.css'
 import getGeminiResponse from '../../utils/geminiResponse'
 import getCurrentLocation from '../../utils/useCurrentLocation'
+import { toast } from 'react-toastify';
 
 const CreateJob = () => {
 
@@ -76,14 +77,14 @@ const CreateJob = () => {
       {
         const jsonData = await response.json()
         console.log("Job details" , jsonData.msg);
-        alert("Job created successfully")
+        toast.success("Job created successfully")
 
         
       }
       else
       {
         const jsonData = await response.json()
-        alert(jsonData.msg)
+        toast.error(jsonData.msg)
       }
 
      } catch(err){
@@ -161,7 +162,7 @@ if (jsonDataMatch) {
     console.log(err);
   }
 } else {
-  alert('JSON data not found in geminiResponse.');
+  toast.error('JSON data not found in geminiResponse.');
 }
      }
    

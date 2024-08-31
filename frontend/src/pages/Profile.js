@@ -7,6 +7,8 @@ import { useContext } from 'react'
 import getCurrentLocation from '../utils/useCurrentLocation'
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/splide/dist/css/splide.min.css';
+import { toast } from 'react-toastify';
+
 
 
 const Testimonials = (props)=>{
@@ -117,7 +119,7 @@ const Profile = () => {
       }
       catch(err)
       {
-        alert(`Can't update location`)
+        toast.error(`Can't update location`)
       }
      }
     
@@ -143,14 +145,14 @@ const Profile = () => {
 
         if(updateMyDetails.ok)
         {
-          alert('Profile updated successfully!')
+          toast.success('Profile updated successfully!')
         }
        
 
         
       } catch(err)
       {
-        alert("Error :"+err)
+        toast.error("Error :"+err)
       }
     }
 
@@ -169,7 +171,7 @@ const Profile = () => {
           {
             const jsonData = await apiData.json()
             const userDetails = jsonData.msg[0]
-              console.log("profile details =>",jsonData.msg[0]);
+              // console.log("profile details =>",jsonData.msg[0]);
                setProfileDetails({
                 ...profileDetails,
                
@@ -191,12 +193,12 @@ const Profile = () => {
           }
           else
           {
-            alert(apiData.msg)
+            toast.error(apiData.msg)
           }
 
         } catch(err)
         {
-          alert(error)
+          toast.error(error)
         }
     }
 
@@ -221,7 +223,7 @@ const Profile = () => {
       }catch(err)
       {
         console.log(err, "testimonials");
-        alert(`Error : ${err}`)
+        toast.error(`Error : ${err}`)
       }
     }
 

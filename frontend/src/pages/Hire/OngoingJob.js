@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import NavHire from '../../components/NavHire'
+import { toast } from 'react-toastify';
+
 import '../../CSS/Hire/Ongoing.css'
 const OngoingJob = () => {
  
@@ -65,7 +67,7 @@ const OngoingJob = () => {
 
     }catch(err)
     {
-      alert(`Error: ${err}`)
+      toast.error(`Error: ${err}`)
     }
 
   };
@@ -77,20 +79,25 @@ const OngoingJob = () => {
   const handleDeleteJob = async(id) => {
    
     try{
-
+      const token = await localStorage.getItem('token')
        const deleteJob = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/removejob/${id}`,
-      { method : 'DELETE'}
+      { method : 'DELETE',
+        headers: {
+          'Authorization': `${token}`, 
+          'Content-Type': 'application/json',
+      },
+      }
       ) ;
 
        if(deleteJob.ok)
        {
          setActiveJobs(activeJobs.filter((Job) => Job._id !== id));
-        alert('Job deleted successfully') ;
+         toast.success('Job deleted successfully') ;
        }
 
     }catch(err)
     {
-      alert(`Error : ${err}`) ;
+      toast.error(`Error : ${err}`) ;
     }
     
   };
@@ -108,12 +115,13 @@ const OngoingJob = () => {
         Feedback: ${formData.message}
         `
       }
-     
+      const token = await localStorage.getItem('token')
       const appComplete = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/completejob`, {
         method : 'POST',
-        headers : {
-          "Content-Type" : "application/json"
-        },
+        headers: {
+          'Authorization': `${token}`, 
+          'Content-Type': 'application/json',
+      },
         body : JSON.stringify({...formData,feedbackMail})
       })
 
@@ -124,39 +132,44 @@ const OngoingJob = () => {
 
      } catch(err)
      {
-       alert(`Error : ${err}`);
+       toast.error(`Error : ${err}`);
      }
   };
 
   const handleApplicationStatus = async(_id, status)=>{
       try{
-
+        const token = await localStorage.getItem('token')
           const statusChange = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/applicationstatus`,{
             method : 'PATCH',
-            headers : {
-              "Content-Type" : "application/json"
-            },
+            headers: {
+              'Authorization': `${token}`, 
+              'Content-Type': 'application/json',
+          },
             body : JSON.stringify({_id, status})
           })
 
           if(statusChange.ok)
           {
             setShowPopupTestimonial(false)
-             alert(`Application ${status}`)
+             toast.success(`Application ${status}`)
           }
       } catch(err)
       {
-        alert(`Error : ${err}`)
+        toast.error(`Error : ${err}`)
       }
   }
 
   const fetchJobs = async () => {
     try {
-    
+      const token = await localStorage.getItem('token')
       const getJobs = await fetch(
         `${process.env.REACT_APP_BASE_URL}/api/jobs/getalljobs`,
         {
           method: "GET",
+          headers: {
+            'Authorization': `${token}`, 
+            'Content-Type': 'application/json',
+        },
         }
       );
 
@@ -180,7 +193,7 @@ const OngoingJob = () => {
 
       console.log("new", activeJobs);
     } catch (err) {
-      alert(err);
+      toast.error(err);
     }
   };
 
@@ -335,8 +348,7 @@ const OngoingJob = () => {
                  <p>Demanded Budget : {app.demandedBudget}</p>
                  <p>Description : {app.description}</p>
                  <br/>
-                 </div>
-                  {app.applicationStatus == "pending" ? <button onClick={()=> handleApplicationStatus(app._id,"accepted")}> Accept</button> : <button 
+                 {app.applicationStatus == "pending" ? <button onClick={()=> handleApplicationStatus(app._id,"accepted")}> Accept</button> : <button 
                    onClick={()=> {
                    setShowPopup(false);
                    setShowPopupTestimonial(true);
@@ -346,6 +358,8 @@ const OngoingJob = () => {
 
                   <button onClick={()=> handleApplicationStatus(app._id,"rejected")}>Reject</button>
                   <button>View Profile</button>
+                 </div>
+                
                  <br/>
 
                  </>
