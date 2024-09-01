@@ -129,6 +129,10 @@ const OngoingJob = () => {
       {
         handleApplicationStatus(formData.appId,"completed");
       }
+      else
+      {
+        toast.error("Some error occurred")  
+      }
 
      } catch(err)
      {
@@ -153,6 +157,8 @@ const OngoingJob = () => {
             setShowPopupTestimonial(false)
              toast.success(`Application ${status}`)
           }
+          else
+          toast.error("Some error occurred")
       } catch(err)
       {
         toast.error(`Error : ${err}`)

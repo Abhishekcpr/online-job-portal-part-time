@@ -133,12 +133,14 @@ const Profile = () => {
         
 
         console.log("ca : ", profileDetails);
+        const token = await localStorage.getItem('token')
 
         const updateMyDetails = await fetch(`${process.env.REACT_APP_BASE_URL}/api/auth/profile/${userId}`, {
           method: 'PATCH',
-          headers : {
-            "Content-Type" : "application/json"
-          },
+          headers: {
+          'Authorization': `${token}`, 
+          'Content-Type': 'application/json',
+      },
           body: JSON.stringify({profileDetails,userId, locationCoordinates : [myLocationCoord.latitude,myLocationCoord.longitude], locationAdd : myLocationAdd})
         })
         console.log(updateMyDetails        );
@@ -162,9 +164,14 @@ const Profile = () => {
         
 
         try{
+          const token = await localStorage.getItem('token')
 
           const apiData = await fetch(`${process.env.REACT_APP_BASE_URL}/api/auth/profile/${localId}`,{
-            method: 'GET'
+            method: 'GET',
+            headers: {
+          'Authorization': `${token}`, 
+          'Content-Type': 'application/json',
+      },
           })
 
           if(apiData.ok)
@@ -206,9 +213,14 @@ const Profile = () => {
     const getTestimonials = async(id)=>{
       try{
         let localId = localStorage.getItem('login_id')
-        
+        const token = await localStorage.getItem('token')
+
         const testimonials = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/gettestimonial/${localId}`,{
-          method: 'GET'
+          method: 'GET',
+          headers: {
+          'Authorization': `${token}`, 
+          'Content-Type': 'application/json',
+      },
         })
 
         if(testimonials.ok)

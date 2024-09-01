@@ -62,12 +62,14 @@ const CreateJob = () => {
     console.log("the id:",formData.employer);
     console.log(formData);
     try{
-     
+      const token = await localStorage.getItem('token')
+
       const response = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/createjob`, {
         method : 'POST',
-        headers : {
-          "Content-Type" : "application/json"
-        },
+       headers: {
+          'Authorization': `${token}`, 
+          'Content-Type': 'application/json',
+      },
         body : JSON.stringify(formData)
        })
 

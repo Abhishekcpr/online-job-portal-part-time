@@ -123,6 +123,8 @@ const ActiveJob = () => {
         }
         
       }
+      else
+      toast.error(jsonData.msg)
       
 
       // console.log("new", activeJobs);

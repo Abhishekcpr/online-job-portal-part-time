@@ -35,15 +35,20 @@ const CompletedJob = () => {
       },
       });
 
+      const jsonData = await completedJobs.json() ;
       if(completedJobs.ok)
       {
-        const jsonData = await completedJobs.json() ;
 
        
         setCompletedJobs(jsonData.msg.filter((jobs)=> jobs.employee._id == id))
         console.log(jsonData.msg);
 
       }
+      else
+        {
+          toast.error(jsonData.msg)
+        }
+
     }catch(err)
     {
       toast.error(`Error: ${err}`)

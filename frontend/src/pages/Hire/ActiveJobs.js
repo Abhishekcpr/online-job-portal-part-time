@@ -56,16 +56,20 @@ const ActiveJobs = () => {
 
   const fetchWorkers = async()=>{
     try{
-  
+      const token = await localStorage.getItem('token')
       const getWorkers = await fetch(`${process.env.REACT_APP_BASE_URL}/api/auth/profile/`,{
-        method : 'GET'
+        method : 'GET',
+        headers: {
+          'Authorization': `${token}`, 
+          'Content-Type': 'application/json',
+      },
       })
   
       console.log(getWorkers);
      
+      const jsonData = await getWorkers.json()
       if(getWorkers.ok)
       {
-         const jsonData = await getWorkers.json()
         
          if(jsonData !== undefined && jsonData.msg.length > 0)
          {
@@ -76,6 +80,8 @@ const ActiveJobs = () => {
           return jsonData.msg
          }
       }
+      else
+      toast.error(jsonData.msg)
 
       console.log("new", activeWorkers);
   
@@ -108,17 +114,24 @@ const ActiveJobs = () => {
     else
     {
        try{
+        const token = await localStorage.getItem('token')
+
         const saveWorkerProfile = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/saveprofile/`, {
           method: 'PATCH',
-          headers : {
-            "Content-Type" : "application/json"
-          },
+          headers: {
+          'Authorization': `${token}`, 
+          'Content-Type': 'application/json',
+      },
           body: JSON.stringify({userId : getId, workerId})
         })
 
         if(saveWorkerProfile.ok)
         {
           toast.success("Profile saved")
+        }
+        else
+        {
+          toast.error("Some error occurred")
         }
        
         // console.log(saveWorkerProfile);

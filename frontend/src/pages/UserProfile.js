@@ -10,6 +10,7 @@ import '@splidejs/splide/dist/css/splide.min.css';
 import { GoogleMap, LoadScript } from "@react-google-maps/api";
 import Modal from "react-modal";
 import Maps from '../components/Direction'
+import { toast } from 'react-toastify'
 
 
 const Testimonials = (props)=>{
@@ -142,14 +143,19 @@ const UserProfile = () => {
         
 
         try{
+          const token = await localStorage.getItem('token')
 
           const apiData = await fetch(`${process.env.REACT_APP_BASE_URL}/api/auth/profile/${userid}`,{
-            method: 'GET'
+            method: 'GET',
+            headers: {
+          'Authorization': `${token}`, 
+          'Content-Type': 'application/json',
+      },
           })
 
+          const jsonData = await apiData.json()
           if(apiData.ok)
           {
-            const jsonData = await apiData.json()
             const userDetails = jsonData.msg[0]
               console.log("profile details =>",jsonData.msg[0]);
                setProfileDetails({
@@ -174,12 +180,12 @@ const UserProfile = () => {
           }
           else
           {
-            alert(apiData.msg)
+            toast.error(jsonData.msg)
           }
 
         } catch(err)
         {
-          alert(error)
+          toast.error(error)
         }
     }
 
@@ -187,16 +193,25 @@ const UserProfile = () => {
     const getTestimonials = async(id)=>{
       try{
         let localId = localStorage.getItem('login_id')
-        
+        const token = await localStorage.getItem('token')
+
         const testimonials = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/gettestimonial/${userid}`,{
-          method: 'GET'
+          method: 'GET',
+          headers: {
+          'Authorization': `${token}`, 
+          'Content-Type': 'application/json',
+      },
         })
 
+        const jsonData = await testimonials.json()
         if(testimonials.ok)
         {
-          const jsonData = await testimonials.json()
           console.log(jsonData.msg);
           setTestimonials(jsonData.msg)
+        }
+        else
+        {
+          toast.error(jsonData.msg)
         }
 
         //comment

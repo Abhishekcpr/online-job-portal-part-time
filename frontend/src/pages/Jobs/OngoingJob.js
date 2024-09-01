@@ -30,12 +30,19 @@ const OngoingJob = () => {
  const getAppliedJobs = async(id) => {
  
   try{
+    const token = await localStorage.getItem('token')
 
-    const jobApplications = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/getapplicationsbycandidateid/${id}`) ;
+    const jobApplications = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/getapplicationsbycandidateid/${id}`,{
+      method:'GET',
+      headers: {
+          'Authorization': `${token}`, 
+          'Content-Type': 'application/json',
+      },
+    }) ;
    
+    const response = await jobApplications.json()
     if(jobApplications.ok)
     {
-      const response = await jobApplications.json()
       let getApplications = response.msg.filter((app)=> ( app.applicationStatus != 'completed'))
       console.log("the repo",getApplications);
       setAppliedJobs(getApplications.map((app)=>{
@@ -50,6 +57,10 @@ const OngoingJob = () => {
         }
       }));
      
+    }
+    else
+    {
+      toast.error(response.msg)
     }
 
   }catch(err)
@@ -72,11 +83,15 @@ const  handleDeleteJob = async(id)=>{
       },
       })
 
+      const message = await withdrawApplication.json()
       if(withdrawApplication.ok)
         {
-          const message = await withdrawApplication.json()
           console.log(message);
           toast.success(message.msg)
+        }
+        else
+        {
+          toast.error(message.msg)
         }
    } catch(err)
    {
