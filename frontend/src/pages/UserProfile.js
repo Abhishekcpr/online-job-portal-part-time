@@ -305,7 +305,7 @@ const UserProfile = () => {
       </div>
     </div>
     
-        <div className="testimonial-container">
+       {testimonials.length > 0 &&  <div className="testimonial-container">
       <div className="title">
         <h2>Testimonial</h2>
          
@@ -324,7 +324,7 @@ const UserProfile = () => {
           }}
         > 
       
-      {testimonials.length > 0 && testimonials.map((test) => (
+      { testimonials.map((test) => (
     <Testimonials key={test._id} {...test} />
 ))}
 
@@ -333,28 +333,8 @@ const UserProfile = () => {
        </div>
        </div>
 
-       {/* <Modal
-        isOpen={isOpen}
-        onRequestClose={toggleModal}
-        contentLabel="Map Modal"
-        style={{
-          content: {
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            marginRight: '-50%',
-            transform: 'translate(-50%, -50%)',
-          },
-        }}
-      >
-     
-     <button onClick={toggleModal}>Close Map</button>
-     
-      { profileDetails !==  undefined && myLocationCoord !== null && Maps({ lat: parseFloat(profileDetails.locationCoord[0]), lng: parseFloat(profileDetails.locationCoord[1]) }, { lat: parseFloat(myLocationCoord.latitude), lng: parseFloat(myLocationCoord.longitude) })}
-       
-     
-      </Modal> */}
+       }
+      
        </section>
     </>
   )

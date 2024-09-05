@@ -55,8 +55,14 @@ const OngoingJob = () => {
     
     setShowPopup(true);
     try{
-
-      const jobApplications = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/getapplications/${id}`) ;
+      const token = await localStorage.getItem('token')
+      const jobApplications = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/getapplications/${id}`,{
+        method: 'GET',
+        headers: {
+          'Authorization': `${token}`, 
+          'Content-Type': 'application/json',
+      }
+      }) ;
      
       if(jobApplications.ok)
       {
