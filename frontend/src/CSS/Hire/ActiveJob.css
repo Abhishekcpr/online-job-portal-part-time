@@ -1,10 +1,11 @@
 .active-workers-inner-container{
   /* border : 3px solid green; */
   border-radius: 10px;
-  padding : 1.5vw;
+  padding : 1.25vw;
   width : 20vw;
   height: fit-content;
-  background-color: rgba(219, 212, 225, 0.8);
+  background-color: whitesmoke;
+  /* background-color: rgba(219, 212, 225, 0.8); */
 }
 
 .active-worker-container{
@@ -12,7 +13,7 @@
     justify-content: space-evenly;
     flex-wrap: wrap;
     padding: 3vw;
-    gap: 2vw;
+    gap: 5vw;
 }
 
 .left-container-img{
@@ -36,20 +37,29 @@
     .active-workers-inner-container
     {
         display: flex;
+        flex-direction: column;
         justify-content: space-around;
-        column-gap: 5vw;
-        width: 90vw;
+        padding : 1vw;
+        width: 80vw;
         
         
     }
 
     .left-container-img  img{
-        width : 35vw;
+        width : 50vw;
         height: 100%;
+        border-radius: 50%;
     }
 
     .truncated{
-        width : 40%;
+        width : 80%;
+    }
+
+    .right-container-info{
+        display: flex;
+        flex-direction: column;
+         padding : 2vw;
+
     }
  
 }

@@ -72,6 +72,7 @@
   @media (max-width: 767px) {
     .popupActiveItem .popup-content{
       width: 80vw;
+      height: fit-content;
     }
 
     .popupActiveItem{

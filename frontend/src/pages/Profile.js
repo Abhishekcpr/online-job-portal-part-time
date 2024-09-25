@@ -51,6 +51,7 @@ const Profile = () => {
   const [myLocationAdd, setLocationAdd] = useState('')
   const [myLocationCoord, setLocationCoord] = useState('')
   const [userId , setUserId] = useState('')
+  const [rating, setRating] = useState(1)
 
    // dummy object for testing:
     const demo=  {
@@ -72,6 +73,7 @@ const Profile = () => {
      expectedwage : '',
       isActive : true,
       emailNotifications: true,
+      rating : 1
     })
     const [testimonials, setTestimonials] = useState([])
     const {userid} = useParams() ;
@@ -79,11 +81,11 @@ const Profile = () => {
     const [activeTab, setActiveTab] = useState('account');
    
 
-    const filledStars = Array.from({ length: profileDetails.rating }, (_, index) => (
+    const filledStars = Array.from({ length: rating }, (_, index) => (
       <span className="star" key={index} style={{color:"orange"}}>&#9733;</span>
     ));
   
-    const openStars = Array.from({ length: 5 - profileDetails.rating }, (_, index) => (
+    const openStars = Array.from({ length: 5 - rating }, (_, index) => (
       <span className="star" key={index} style={{color:"orange"}}>&#9734;</span>
     ));
   
@@ -187,7 +189,7 @@ const Profile = () => {
             locationAdd : userDetails.locationAdd,
             skills : userDetails.skills,
             username : userDetails.username,
-            rating : userDetails.rating,
+           
             email : userDetails.email,
             phone : userDetails.phone,
             isActive : userDetails.isActive,
@@ -226,8 +228,25 @@ const Profile = () => {
         if(testimonials.ok)
         {
           const jsonData = await testimonials.json()
+          if(jsonData.msg)
+          {
+            let avgRating = jsonData.msg.length ;
+            let sum = 0 ;
+            for( let x in jsonData.msg)
+            {
+              sum+= jsonData.msg[x].rating ;
+              
+            }
+            
+            avgRating = Math.floor(sum/avgRating);
+            console.log("Averge rating = " + avgRating);
+            setRating(avgRating)
+          }
+          // setProfileDetails({...profileDetails})
           console.log(jsonData.msg);
           setTestimonials(jsonData.msg)
+
+
         }
 
         //comment

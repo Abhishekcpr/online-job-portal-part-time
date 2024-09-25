@@ -6,7 +6,7 @@ import { useContext, useEffect } from "react";
 import axios from 'axios'
 import actionCommand from "../utils/actionCommands";
 import getGeminiResponse from "../utils/geminiResponse";
-
+// import { faBars } from '@fortawesome/free-solid-svg-icons';
 
  const Navbar = () => {
 
