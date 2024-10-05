@@ -4,6 +4,7 @@ import getCurrentLocation from '../utils/useCurrentLocation';
 import { json, useNavigate } from 'react-router-dom'; 
 import axios from 'axios'
 import { toast } from 'react-toastify';
+import Spinner from '../components/Spinner';
 
 const Register = () => {
 
@@ -20,6 +21,8 @@ const Register = () => {
     panImage: null,
     dob: '',
   });
+  
+  const [isLoading, setLoading] = useState(false)
 
   const navigate = useNavigate()
 
@@ -54,7 +57,7 @@ const Register = () => {
     try{
 
      
-
+      setLoading(true)
      const response =  await axios.post(`${process.env.REACT_APP_BASE_URL}/api/auth/signup`, {...formData, subject : "New registration", message: `Hi ${formData.username}, you are successfully registered on EMO. ~Abhishek, founder, EMO `}, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
@@ -62,7 +65,7 @@ const Register = () => {
             });
 
       
-            console.log(response);
+          
 
       if(response.status == 201)
       {
@@ -77,25 +80,33 @@ const Register = () => {
           dob: '',
         });
        
+        setLoading(false)
         toast.success("Registration successful !!!")
         navigate('/login')
         
       }
-      else
+      else if(response.status == 400)
       {
-        const jsonData = await response.json()
+       
         console.log("error->" , response);
-        toast.error(jsonData.msg)
+        toast.error(response.data.msg)
       }
 
      } catch(err){
-       toast.error("Error:", err);
+      
+      setLoading(false)
+      console.log(err);
+      
+       toast.error("Error: " + "User already exists with these credentials");
      } 
 
    
 
 
   };
+
+  if(isLoading)
+    return <Spinner/>
 
   return (
    <div className="register-container">

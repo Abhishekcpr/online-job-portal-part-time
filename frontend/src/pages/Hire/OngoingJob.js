@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import NavHire from '../../components/NavHire'
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 import '../../CSS/Hire/Ongoing.css'
 const OngoingJob = () => {
@@ -11,6 +12,8 @@ const OngoingJob = () => {
   const [selectedJob, setSelectedJob] = useState(null);
   const [activeJobs, setActiveJobs] = useState([]);
   const [applications, setApplications] = useState([]);
+
+  const navigate = useNavigate()
 
   // for testimonial form :
   const [formData, setFormData] = useState({
@@ -146,22 +149,33 @@ const OngoingJob = () => {
      }
   };
 
-  const handleApplicationStatus = async(_id, status)=>{
+  const handleApplicationStatus = async(_id, worker)=>{
+
+      
       try{
         const token = await localStorage.getItem('token')
+        let employer = await localStorage.getItem('login_detail')
+        employer = JSON.parse(employer)
+        employer = employer.username
+
+        const statusMail = {
+          email : worker.email,
+          subject: "Application status for you applied job",
+          message : `Hi ${worker.name} your application for the job ${_id} has been ${worker.status} by ${employer ?? "the recruiter"}`
+        }
           const statusChange = await fetch(`${process.env.REACT_APP_BASE_URL}/api/jobs/applicationstatus`,{
             method : 'PATCH',
             headers: {
               'Authorization': `${token}`, 
               'Content-Type': 'application/json',
           },
-            body : JSON.stringify({_id, status})
+            body : JSON.stringify({_id, status: worker.status,statusMail})
           })
 
           if(statusChange.ok)
           {
             setShowPopupTestimonial(false)
-             toast.success(`Application ${status}`)
+             toast.success(`Application ${worker.status}`)
           }
           else
           toast.error("Some error occurred")
@@ -360,7 +374,9 @@ const OngoingJob = () => {
                  <p>Demanded Budget : {app.demandedBudget}</p>
                  <p>Description : {app.description}</p>
                  <br/>
-                 {app.applicationStatus == "pending" ? <button onClick={()=> handleApplicationStatus(app._id,"accepted")}> Accept</button> : <button 
+                  <div className="multiple-btns">
+                  {app.applicationStatus == "pending" ? <button  className="general-btn pass" onClick={()=> handleApplicationStatus(app._id,{status : "accepted", email : app.candidate.email, name : app.candidate.username})}> Accept</button> : <button
+                   className="general-btn pass" 
                    onClick={()=> {
                    setShowPopup(false);
                    setShowPopupTestimonial(true);
@@ -368,8 +384,13 @@ const OngoingJob = () => {
                    }}>
                    Complete</button>}
 
-                  <button onClick={()=> handleApplicationStatus(app._id,"rejected")}>Reject</button>
-                  <button>View Profile</button>
+                  <button 
+                  className="general-btn fail"
+                  onClick={()=> handleApplicationStatus(app._id,{status : "rejected", email : app.candidate.email, name : app.candidate.username})}>Reject</button>
+                  <button className="general-btn"
+                  onClick={()=>{ navigate("/user-profile/" + app.candidate._id)}}
+                  >View Profile</button>
+                  </div>
                  </div>
                 
                  <br/>

@@ -34,6 +34,16 @@ code {
   margin-top: 20px;
 }
 
+.pass{
+  background-color: rgb(39, 157, 39);
+  color : white
+}
+
+.fail{
+  background-color: red;
+  color : white;
+}
+
 .profile-card-buttons{
   display: flex;
   /* background-color: orange; */
@@ -46,4 +56,10 @@ code {
   overflow: hidden;
   text-overflow: ellipsis;
   width: 90%; /* or a specific width */
+}
+
+.multiple-btns{
+  display: flex;
+  justify-content: flex-start;
+  gap : 10px;
 }

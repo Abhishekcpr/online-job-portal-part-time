@@ -26,10 +26,21 @@ const signup = async (req, res) => {
 
         let imageUrl;
         // Upload file to Cloudinary
+       
+
+        const { username, email, phone, password, locationAdd, locationCoord, DOB,subject,message } = req.body;
+
+        const userExist = await User.findOne({ phone });
+
+        if (userExist) {
+            return res.status(400).json({ msg: "User already exists with these credentials" });
+        }
+
         await new Promise((resolve, reject) => {
             cloudinary.uploader.upload_stream({ resource_type: 'auto' }, (error, result) => {
                 if (error) {
                     console.error(error);
+                    return res.status(500).send({ msg: 'something went wrong while uploading file' });
                     reject({ msg: 'Error uploading file.' });
                 }
                 // If upload is successful, resolve with the Cloudinary URL
@@ -39,13 +50,6 @@ const signup = async (req, res) => {
             }).end(uploadedFile.data);
         });
 
-        const { username, email, phone, password, locationAdd, locationCoord, DOB,subject,message } = req.body;
-
-        const userExist = await User.findOne({ phone });
-
-        if (userExist) {
-            return res.status(400).json({ msg: "User already exists" });
-        }
 
         const createUser = await User.create({
             username,
@@ -60,14 +64,23 @@ const signup = async (req, res) => {
             createdAt: new Date()
         });
 
+       
+     
         console.log("New user created " + createUser);
         const mailResponse = await sendMail({email, subject, message}, res);
         console.log("email ", mailResponse);
-        res.status(201).json({ message: "user registered", token: await createUser.generateToken(), userId: createUser._id.toString() });
+
+        if(createUser)
+      {  res.status(201).json({ message: "user registered", token: await createUser.generateToken(), userId: createUser._id.toString() });}
+        else
+        {
+            console.log("user creating error :" + createUser);
+            
+        }
 
     } catch (err) {
         console.log(err);
-        res.status(500).send({ msg: "Some error occurred" + err });
+        res.status(500).send({ msg:  err });
     }
 }
 
@@ -83,14 +96,13 @@ const login = async(req,res)=>{
            return res.status(401).json({msg : "User does not exist!!!"});
         }
         
-        // console.log(userExist);
 
         const isMatched = await bcrypt.compare(password, userExist.password);
         // const isMatched =( password == userExist.password ? true : false );
 
         if(isMatched)
         {
-            res.status(200).json({message : "Login successful", token : await userExist.generateToken(), userId : userExist._id.toString(), phone : userExist.phone, username : userExist.username, isAdmin : userExist.isAdmin, email : userExist.email}) ;
+            res.status(200).json({message : "Login successfull", token : await userExist.generateToken(), userId : userExist._id.toString(), phone : userExist.phone, username : userExist.username, isAdmin : userExist.isAdmin, email : userExist.email}) ;
         }
         else
          return res.status(400).json({msg : "invalid credentials"});

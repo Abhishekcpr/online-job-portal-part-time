@@ -274,11 +274,12 @@ const getSavedProfile = async (req, res) => {
 
   const changeApplicationStatus = async(req,res)=>{
     try{
-        const {_id, status} = req.body ;
+        const {_id, status,statusMail} = req.body ;
         const updateStatus = await AppliedJob.updateOne({_id}, {applicationStatus : status}) ;
 
         if(updateStatus)
         {
+            await sendMail(statusMail,res)
           return  res.status(200).send({msg : `Job ${status}`}) ;
         }
 

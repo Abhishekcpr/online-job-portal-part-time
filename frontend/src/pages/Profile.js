@@ -348,6 +348,12 @@ const Profile = () => {
             <button className="update-button" onClick={updateLocation}>
              Fetch Location
         </button>
+        <button className="update-button" onClick={()=>{console.log("hellow")}}>
+             Generate QR
+        </button>
+        <button className="update-button" onClick={()=>{console.log("hellow")}}>
+             Scan 
+        </button>
           </form>
         )}
         {activeTab === 'notifications' && (
