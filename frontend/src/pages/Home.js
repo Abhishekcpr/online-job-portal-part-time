@@ -6,7 +6,7 @@ const Home = () => {
   return (
    <>
    
-     <h1 className="main-heading">Earn Money Online</h1>
+     <h1 className="main-heading">Rozgar Setu</h1>
 
      <div className="outer-container">
       <div className="section1 flex">

@@ -1,6 +1,6 @@
 import NavJob from '../../components/NavJob'
 import { toast } from 'react-toastify';
-
+import Spinner from "../../components/Spinner";
 import React, {useState,useEffect} from 'react'
 import '../../CSS/Hire/Ongoing.css'
 
@@ -8,6 +8,8 @@ const CompletedJob = () => {
   const [completedJobs, setCompletedJobs] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedJob, setSelectedJob] = useState(null);
+  const [isLoading, setIsLoading] = useState(true)
+
 
   const handleView = (id) => {
    
@@ -53,6 +55,8 @@ const CompletedJob = () => {
     {
       toast.error(`Error: ${err}`)
     }
+
+    setIsLoading(false)
   }
 
   async function doSomething(id){
@@ -66,6 +70,9 @@ const CompletedJob = () => {
     doSomething(getId)
    
   }, [])
+
+  if(isLoading)
+    return <Spinner/>
 
   return (
     <>

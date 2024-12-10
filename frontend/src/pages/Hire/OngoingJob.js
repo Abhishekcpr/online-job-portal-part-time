@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import NavHire from '../../components/NavHire'
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
-
+import Spinner from '../../components/Spinner';
 import '../../CSS/Hire/Ongoing.css'
 const OngoingJob = () => {
  
@@ -12,6 +12,8 @@ const OngoingJob = () => {
   const [selectedJob, setSelectedJob] = useState(null);
   const [activeJobs, setActiveJobs] = useState([]);
   const [applications, setApplications] = useState([]);
+  const [isLoading, setIsLoading] = useState(true)
+
 
   const navigate = useNavigate()
 
@@ -221,6 +223,8 @@ const OngoingJob = () => {
     } catch (err) {
       toast.error(err);
     }
+
+    setIsLoading(false)
   };
 
   async function doSomething(){
@@ -235,6 +239,9 @@ const OngoingJob = () => {
    
   }, [applications.applicationStatus])
   
+
+  if(isLoading)
+    return <Spinner/>
 
   return (
     <>

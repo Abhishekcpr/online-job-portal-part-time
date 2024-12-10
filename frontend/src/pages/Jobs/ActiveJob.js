@@ -127,7 +127,6 @@ const ActiveJob = () => {
       toast.error(jsonData.msg)
       
 
-      // console.log("new", activeJobs);
     } catch (err) {
       toast.error(err);
     }
@@ -208,6 +207,7 @@ const ActiveJob = () => {
           const errorMessage = "Already applied to this job"
           toast.error(errorMessage)
         }
+       
         // console.log(saveWorkerProfile);
       } catch (err) {
         toast.error(`Error : ${err}`);

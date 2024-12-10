@@ -1,11 +1,14 @@
 import React, {useState,useEffect} from 'react'
 import NavHire from '../../components/NavHire'
 import '../../CSS/Hire/Ongoing.css'
+import Spinner from '../../components/Spinner'
 
 const OngoingJob = () => {
   const [completedJobs, setCompletedJobs] = useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [selectedJob, setSelectedJob] = useState(null);
+  const [isLoading, setIsLoading] = useState(true)
+
 
   const handleView = (id) => {
    
@@ -46,6 +49,8 @@ const OngoingJob = () => {
     {
       alert(`Error: ${err}`)
     }
+
+    setIsLoading(false)
   }
 
   async function doSomething(id){

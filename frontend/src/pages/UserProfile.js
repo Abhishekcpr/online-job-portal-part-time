@@ -11,6 +11,7 @@ import { GoogleMap, LoadScript } from "@react-google-maps/api";
 import Modal from "react-modal";
 import Maps from '../components/Direction'
 import { toast } from 'react-toastify'
+import Spinner from '../components/Spinner';
 
 
 const Testimonials = (props)=>{
@@ -49,6 +50,7 @@ const UserProfile = () => {
 
   // for map directions 
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true)
 
   // for profile 
 
@@ -79,9 +81,9 @@ const UserProfile = () => {
 
    // dummy object for testing:
     const demo=  {
-      name : "King coder abhishek",
+      name : "Sample name",
       imgSrc : "https://media.licdn.com/dms/image/C4D03AQHL7RnuSeWLgA/profile-displayphoto-shrink_400_400/0/1655254741573?e=1716422400&v=beta&t=geQQl1MfD-hh0yBmBc9wBwiiHStIVVeD14CiC6R7jfo",
-      msg : "Abhishek is a cool coder Abhishek is a cool coder Abhishek is a cool coder Abhishek is a cool coder Abhishek is a cool coder",
+      msg : "This is a random message",
       rating : 4
 
     }
@@ -187,6 +189,8 @@ const UserProfile = () => {
         {
           toast.error(error)
         }
+
+        setIsLoading(false)
     }
 
     // testimonials : 
@@ -237,7 +241,10 @@ const UserProfile = () => {
 
    
 
-
+ if(isLoading)
+ {
+  return <Spinner/>
+ }
     
   return (
     <>

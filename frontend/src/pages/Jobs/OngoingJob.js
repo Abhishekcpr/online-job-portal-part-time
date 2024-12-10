@@ -1,8 +1,8 @@
 import React,{useEffect,useState} from 'react'
 import NavJob from '../../components/NavJob'
 import { toast } from 'react-toastify';
-
 import '../../CSS/Hire/Ongoing.css'
+import Spinner from '../../components/Spinner';
 
 const OngoingJob = () => {
  const [appliedJobs, setAppliedJobs] = useState([{
@@ -25,6 +25,8 @@ const OngoingJob = () => {
 
 
  })
+ const [isLoading, setIsLoading] = useState(true)
+
  const [showPopup, setShowPopup] = useState(false);
 
  const getAppliedJobs = async(id) => {
@@ -68,6 +70,8 @@ const OngoingJob = () => {
     toast.error(`Error: ${err}`)
   }
 
+  setIsLoading(false)
+
 };
 
 
@@ -107,6 +111,9 @@ const  handleDeleteJob = async(id)=>{
     const userId = localStorage.getItem('login_id')
     doSomething(userId)
   }, [])
+
+  if(isLoading)
+    return <Spinner/>
   
   return (
     <>

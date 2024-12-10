@@ -8,6 +8,8 @@ import getCurrentLocation from '../utils/useCurrentLocation'
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import '@splidejs/splide/dist/css/splide.min.css';
 import { toast } from 'react-toastify';
+import Spinner from '../components/Spinner';
+
 
 
 
@@ -46,6 +48,8 @@ const Testimonials = (props)=>{
 
 
 const Profile = () => {
+  
+  const [isLoading, setIsLoading] = useState(true)
 
   const {isLoggedIn, setLogin} = useContext(authContext)
   const [myLocationAdd, setLocationAdd] = useState('')
@@ -158,6 +162,8 @@ const Profile = () => {
       {
         toast.error("Error :"+err)
       }
+
+    
     }
 
     const getApiData = async(id)=>{
@@ -209,6 +215,8 @@ const Profile = () => {
         {
           toast.error(error)
         }
+
+        setIsLoading(false)
     }
 
     // testimonials : 
@@ -284,6 +292,9 @@ const Profile = () => {
     }, [])
 
 
+
+    if(isLoading)
+      return <Spinner/>
     
   return (
     <>
@@ -348,12 +359,12 @@ const Profile = () => {
             <button className="update-button" onClick={updateLocation}>
              Fetch Location
         </button>
-        <button className="update-button" onClick={()=>{console.log("hellow")}}>
+        {/* <button className="update-button" onClick={()=>{console.log("hellow")}}>
              Generate QR
-        </button>
-        <button className="update-button" onClick={()=>{console.log("hellow")}}>
+        </button> */}
+        {/* <button className="update-button" onClick={()=>{console.log("hellow")}}>
              Scan 
-        </button>
+        </button> */}
           </form>
         )}
         {activeTab === 'notifications' && (

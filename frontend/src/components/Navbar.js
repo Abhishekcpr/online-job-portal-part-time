@@ -6,7 +6,7 @@ import { useContext, useEffect } from "react";
 import axios from 'axios'
 import actionCommand from "../utils/actionCommands";
 import getGeminiResponse from "../utils/geminiResponse";
-// import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
  const Navbar = () => {
 
@@ -56,6 +56,7 @@ import getGeminiResponse from "../utils/geminiResponse";
     const prefixCmd =  JSON.stringify(actionCommand)  +  " Use this json to find most suitable key according to description and return the key only, you may need to translate the prompt."
     let apiData = await getGeminiResponse( prefixCmd+ transcript);
    
+     
     console.log("api data", apiData);
 
     if(apiData !== undefined)

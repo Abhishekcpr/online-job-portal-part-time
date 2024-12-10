@@ -16,7 +16,6 @@ const connectDb = require('./utils/db.js')
 app.use(express.json())
 
 
-// console.log("token",process.env.TELEGRAM_BOT_API);
 
 
 // origin: "http://localhost:3000/",
