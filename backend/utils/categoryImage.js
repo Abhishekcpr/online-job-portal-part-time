@@ -2,7 +2,7 @@
 
 const categoryImage = {
     'appliance repair' : 'https://miro.medium.com/v2/resize:fit:1130/1*1SYIdp-nJIvHhNpAy_aOxg.jpeg',
-    'transportation' : 'https://www.odtap.com/wp-content/uploads/2019/03/5-Top-Technology-Trends-in-Transportation-and-Logistics-Industry.png',
+    'transportation' : 'https://i0.wp.com/jfsdigital.org/wp-content/uploads/2023/12/cityscape-illustrating-the-bustling-dynamics-of-public-transport-buses-with-clear-destinations-disp-599916937.png?fit=1024%2C576&ssl=1',
     'electrician' : 'https://cdn.langeek.co/photo/20974/original/',
     'plumber' : 'https://www.shutterstock.com/image-vector/plumbing-specialist-toolbox-fixing-repairing-260nw-1042465225.jpg',
     'mason' : 'https://3.imimg.com/data3/EO/IR/MY-15660944/images-mason-500x500.jpg',
